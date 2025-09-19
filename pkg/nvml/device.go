@@ -1082,7 +1082,10 @@ func (device nvmlDevice) GetBridgeChipInfo() (BridgeChipHierarchy, Return) {
 
 // nvml.DeviceGetComputeRunningProcesses()
 func deviceGetComputeRunningProcesses_v1(device nvmlDevice, size uint32) ([]ProcessInfo, Return) {
-	var infoCount uint32 = size // Will be reduced upon returning
+	var infoCount uint32 = 1 // Will be reduced upon returning
+	if size > 0 {
+		infoCount = size
+	}
 	for {
 		infos := make([]ProcessInfo_v1, infoCount)
 		ret := nvmlDeviceGetComputeRunningProcesses_v1(device, &infoCount, &infos[0])
@@ -1100,7 +1103,10 @@ func deviceGetComputeRunningProcesses_v1(device nvmlDevice, size uint32) ([]Proc
 }
 
 func deviceGetComputeRunningProcesses_v2(device nvmlDevice, size uint32) ([]ProcessInfo, Return) {
-	var infoCount uint32 = size // Will be reduced upon returning
+	var infoCount uint32 = 1 // Will be reduced upon returning
+	if size > 0 {
+		infoCount = size
+	}
 	for {
 		infos := make([]ProcessInfo_v2, infoCount)
 		ret := nvmlDeviceGetComputeRunningProcesses_v2(device, &infoCount, &infos[0])
@@ -1118,7 +1124,10 @@ func deviceGetComputeRunningProcesses_v2(device nvmlDevice, size uint32) ([]Proc
 }
 
 func deviceGetComputeRunningProcesses_v3(device nvmlDevice, size uint32) ([]ProcessInfo, Return) {
-	var infoCount uint32 = size // Will be reduced upon returning
+	var infoCount uint32 = 1 // Will be reduced upon returning
+	if size > 0 {
+		infoCount = size
+	}
 	for {
 		infos := make([]ProcessInfo, infoCount)
 		ret := nvmlDeviceGetComputeRunningProcesses_v3(device, &infoCount, &infos[0])
@@ -1153,7 +1162,10 @@ func (device nvmlDevice) GetComputeRunningProcessesBySize(size uint32) ([]Proces
 
 // nvml.DeviceGetGraphicsRunningProcesses()
 func deviceGetGraphicsRunningProcesses_v1(device nvmlDevice, size uint32) ([]ProcessInfo, Return) {
-	var infoCount uint32 = size // Will be reduced upon returning
+	var infoCount uint32 = 1 // Will be reduced upon returning
+	if size > 0 {
+		infoCount = size
+	}
 	for {
 		infos := make([]ProcessInfo_v1, infoCount)
 		ret := nvmlDeviceGetGraphicsRunningProcesses_v1(device, &infoCount, &infos[0])
@@ -1171,7 +1183,10 @@ func deviceGetGraphicsRunningProcesses_v1(device nvmlDevice, size uint32) ([]Pro
 }
 
 func deviceGetGraphicsRunningProcesses_v2(device nvmlDevice, size uint32) ([]ProcessInfo, Return) {
-	var infoCount uint32 = size // Will be reduced upon returning
+	var infoCount uint32 = 1 // Will be reduced upon returning
+	if size > 0 {
+		infoCount = size
+	}
 	for {
 		infos := make([]ProcessInfo_v2, infoCount)
 		ret := nvmlDeviceGetGraphicsRunningProcesses_v2(device, &infoCount, &infos[0])
@@ -1189,7 +1204,10 @@ func deviceGetGraphicsRunningProcesses_v2(device nvmlDevice, size uint32) ([]Pro
 }
 
 func deviceGetGraphicsRunningProcesses_v3(device nvmlDevice, size uint32) ([]ProcessInfo, Return) {
-	var infoCount uint32 = size // Will be reduced upon returning
+	var infoCount uint32 = 1 // Will be reduced upon returning
+	if size > 0 {
+		infoCount = size
+	}
 	for {
 		infos := make([]ProcessInfo, infoCount)
 		ret := nvmlDeviceGetGraphicsRunningProcesses_v3(device, &infoCount, &infos[0])
@@ -1932,6 +1950,10 @@ func (l *library) DeviceGetProcessUtilization(device Device, lastSeenTimestamp u
 	return device.GetProcessUtilization(lastSeenTimestamp)
 }
 
+func (l *library) DeviceGetProcessUtilizationBySize(device Device, lastSeenTimestamp uint64, size uint32) ([]ProcessUtilizationSample, Return) {
+	return device.GetProcessUtilizationBySize(lastSeenTimestamp, size)
+}
+
 func (device nvmlDevice) GetProcessUtilization(lastSeenTimestamp uint64) ([]ProcessUtilizationSample, Return) {
 	var processSamplesCount uint32
 	ret := nvmlDeviceGetProcessUtilization(device, nil, &processSamplesCount, lastSeenTimestamp)
@@ -1943,6 +1965,33 @@ func (device nvmlDevice) GetProcessUtilization(lastSeenTimestamp uint64) ([]Proc
 	}
 	utilization := make([]ProcessUtilizationSample, processSamplesCount)
 	ret = nvmlDeviceGetProcessUtilization(device, &utilization[0], &processSamplesCount, lastSeenTimestamp)
+	return utilization[:processSamplesCount], ret
+}
+
+func (device nvmlDevice) GetProcessUtilizationBySize(lastSeenTimestamp uint64, size uint32) ([]ProcessUtilizationSample, Return) {
+	if size == 0 {
+		return device.GetProcessUtilization(lastSeenTimestamp)
+	}
+	var processSamplesCount uint32 = size
+	utilization := make([]ProcessUtilizationSample, processSamplesCount)
+	ret := nvmlDeviceGetProcessUtilization(device, &utilization[0], &processSamplesCount, lastSeenTimestamp)
+	if ret == SUCCESS {
+		if processSamplesCount > size {
+			processSamplesCount = size
+		}
+		return utilization[:processSamplesCount], ret
+	}
+	if ret != ERROR_INSUFFICIENT_SIZE {
+		return nil, ret
+	}
+	if processSamplesCount == size {
+		processSamplesCount *= 2
+	}
+	utilization = make([]ProcessUtilizationSample, processSamplesCount)
+	ret = nvmlDeviceGetProcessUtilization(device, &utilization[0], &processSamplesCount, lastSeenTimestamp)
+	if processSamplesCount > size {
+		processSamplesCount = size
+	}
 	return utilization[:processSamplesCount], ret
 }
 

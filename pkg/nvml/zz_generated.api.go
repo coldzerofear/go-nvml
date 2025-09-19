@@ -188,6 +188,7 @@ var (
 	DeviceGetPowerState                              = libnvml.DeviceGetPowerState
 	DeviceGetPowerUsage                              = libnvml.DeviceGetPowerUsage
 	DeviceGetProcessUtilization                      = libnvml.DeviceGetProcessUtilization
+	DeviceGetProcessUtilizationBySize                = libnvml.DeviceGetProcessUtilizationBySize
 	DeviceGetProcessesUtilizationInfo                = libnvml.DeviceGetProcessesUtilizationInfo
 	DeviceGetRemappedRows                            = libnvml.DeviceGetRemappedRows
 	DeviceGetRepairStatus                            = libnvml.DeviceGetRepairStatus
@@ -570,6 +571,7 @@ type Interface interface {
 	DeviceGetPowerState(Device) (Pstates, Return)
 	DeviceGetPowerUsage(Device) (uint32, Return)
 	DeviceGetProcessUtilization(Device, uint64) ([]ProcessUtilizationSample, Return)
+	DeviceGetProcessUtilizationBySize(Device, uint64, uint32) ([]ProcessUtilizationSample, Return)
 	DeviceGetProcessesUtilizationInfo(Device) (ProcessesUtilizationInfo, Return)
 	DeviceGetRemappedRows(Device) (int, int, bool, bool, Return)
 	DeviceGetRepairStatus(Device) (RepairStatus, Return)
@@ -943,6 +945,7 @@ type Device interface {
 	GetPowerState() (Pstates, Return)
 	GetPowerUsage() (uint32, Return)
 	GetProcessUtilization(uint64) ([]ProcessUtilizationSample, Return)
+	GetProcessUtilizationBySize(uint64, uint32) ([]ProcessUtilizationSample, Return)
 	GetProcessesUtilizationInfo() (ProcessesUtilizationInfo, Return)
 	GetRemappedRows() (int, int, bool, bool, Return)
 	GetRepairStatus() (RepairStatus, Return)
