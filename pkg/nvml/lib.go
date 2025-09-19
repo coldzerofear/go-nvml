@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"unsafe"
 
 	"github.com/NVIDIA/go-nvml/pkg/dl"
 )
@@ -172,26 +173,23 @@ type ProcessInfo_v1Slice []ProcessInfo_v1
 type ProcessInfo_v2Slice []ProcessInfo_v2
 
 func (pis ProcessInfo_v1Slice) ToProcessInfoSlice() []ProcessInfo {
-	var newInfos []ProcessInfo
-	for _, pi := range pis {
-		info := ProcessInfo{
+	var newInfos = make([]ProcessInfo, len(pis))
+	for i, pi := range pis {
+		newInfos[i] = ProcessInfo{
 			Pid:               pi.Pid,
 			UsedGpuMemory:     pi.UsedGpuMemory,
 			GpuInstanceId:     0xFFFFFFFF, // GPU instance ID is invalid in v1
 			ComputeInstanceId: 0xFFFFFFFF, // Compute instance ID is invalid in v1
 		}
-		newInfos = append(newInfos, info)
 	}
 	return newInfos
 }
 
 func (pis ProcessInfo_v2Slice) ToProcessInfoSlice() []ProcessInfo {
-	var newInfos []ProcessInfo
-	for _, pi := range pis {
-		info := ProcessInfo(pi)
-		newInfos = append(newInfos, info)
+	if len(pis) > 0 {
+		return *(*[]ProcessInfo)(unsafe.Pointer(&pis))
 	}
-	return newInfos
+	return nil
 }
 
 // updateVersionedSymbols checks for versioned symbols in the loaded dynamic library.

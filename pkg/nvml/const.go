@@ -28,46 +28,76 @@ package nvml
 import "C"
 
 const (
-	// NO_UNVERSIONED_FUNC_DEFS as defined in go-nvml/<predefine>:24
-	NO_UNVERSIONED_FUNC_DEFS = 1
+	// MCDM_SUPPORT as defined in nvml/nvml.h
+
 	// API_VERSION as defined in nvml/nvml.h
 	API_VERSION = 13
 	// API_VERSION_STR as defined in nvml/nvml.h
 	API_VERSION_STR = "13"
 	// VALUE_NOT_AVAILABLE as defined in nvml/nvml.h
-	VALUE_NOT_AVAILABLE = -1
+	VALUE_NOT_AVAILABLE = (-1)
 	// DEVICE_PCI_BUS_ID_BUFFER_SIZE as defined in nvml/nvml.h
 	DEVICE_PCI_BUS_ID_BUFFER_SIZE = 32
 	// DEVICE_PCI_BUS_ID_BUFFER_V2_SIZE as defined in nvml/nvml.h
 	DEVICE_PCI_BUS_ID_BUFFER_V2_SIZE = 16
+	// PciInfoExt_v1 as defined in nvml/nvml.h
+	PciInfoExt_v1 = 0x650720
 	// DEVICE_PCI_BUS_ID_LEGACY_FMT as defined in nvml/nvml.h
 	DEVICE_PCI_BUS_ID_LEGACY_FMT = "%04X:%02X:%02X.0"
 	// DEVICE_PCI_BUS_ID_FMT as defined in nvml/nvml.h
 	DEVICE_PCI_BUS_ID_FMT = "%08X:%02X:%02X.0"
+	// Memory_v2 as defined in nvml/nvml.h
+	Memory_v2 = 0x650720
+	// ProcessDetailList_v1 as defined in nvml/nvml.h
+	ProcessDetailList_v1 = 0x650720
+	// C2cModeInfo_v1 as defined in nvml/nvml.h
+	C2cModeInfo_v1 = 0x650720
+	// DeviceAddressingMode_v1 as defined in nvml/nvml.h
+	DeviceAddressingMode_v1 = 0x650720
+	// RepairStatus_v1 as defined in nvml/nvml.h
+	RepairStatus_v1 = 0x650720
 	// NVLINK_MAX_LINKS as defined in nvml/nvml.h
 	NVLINK_MAX_LINKS = 18
 	// TOPOLOGY_CPU as defined in nvml/nvml.h
-	TOPOLOGY_CPU = 0
+	TOPOLOGY_CPU = 0x650720
 	// MAX_PHYSICAL_BRIDGE as defined in nvml/nvml.h
 	MAX_PHYSICAL_BRIDGE = 128
 	// MAX_THERMAL_SENSORS_PER_GPU as defined in nvml/nvml.h
 	MAX_THERMAL_SENSORS_PER_GPU = 3
+	// CoolerInfo_v1 as defined in nvml/nvml.h
+	CoolerInfo_v1 = 0x650720
 	// DEVICE_UUID_ASCII_LEN as defined in nvml/nvml.h
 	DEVICE_UUID_ASCII_LEN = 41
 	// DEVICE_UUID_BINARY_LEN as defined in nvml/nvml.h
 	DEVICE_UUID_BINARY_LEN = 16
+	// UUID_v1 as defined in nvml/nvml.h
+	UUID_v1 = 0x650720
+	// Pdi_v1 as defined in nvml/nvml.h
+	Pdi_v1 = 0x650720
 	// FlagDefault as defined in nvml/nvml.h
-	FlagDefault = 0
+	FlagDefault = 0x00
 	// FlagForce as defined in nvml/nvml.h
-	FlagForce = 1
+	FlagForce = 0x01
+	// DramEncryptionInfo_v1 as defined in nvml/nvml.h
+	DramEncryptionInfo_v1 = 0x650720
+	// MarginTemperature_v1 as defined in nvml/nvml.h
+	MarginTemperature_v1 = 0x650720
 	// SINGLE_BIT_ECC as defined in nvml/nvml.h
-	SINGLE_BIT_ECC = 0
+	SINGLE_BIT_ECC = 0x650720
 	// DOUBLE_BIT_ECC as defined in nvml/nvml.h
-	DOUBLE_BIT_ECC = 0
+	DOUBLE_BIT_ECC = 0x650720
 	// MAX_GPU_PERF_PSTATES as defined in nvml/nvml.h
 	MAX_GPU_PERF_PSTATES = 16
+	// ClockOffset_v1 as defined in nvml/nvml.h
+	ClockOffset_v1 = 0x650720
+	// FanSpeedInfo_v1 as defined in nvml/nvml.h
+	FanSpeedInfo_v1 = 0x650720
 	// PERF_MODES_BUFFER_SIZE as defined in nvml/nvml.h
 	PERF_MODES_BUFFER_SIZE = 2048
+	// DevicePerfModes_v1 as defined in nvml/nvml.h
+	DevicePerfModes_v1 = 0x650720
+	// DeviceCurrentClockFreqs_v1 as defined in nvml/nvml.h
+	DeviceCurrentClockFreqs_v1 = 0x650720
 	// POWER_MIZER_MODE_ADAPTIVE as defined in nvml/nvml.h
 	POWER_MIZER_MODE_ADAPTIVE = 0
 	// POWER_MIZER_MODE_PREFER_MAXIMUM_PERFORMANCE as defined in nvml/nvml.h
@@ -76,8 +106,18 @@ const (
 	POWER_MIZER_MODE_AUTO = 2
 	// POWER_MIZER_MODE_PREFER_CONSISTENT_PERFORMANCE as defined in nvml/nvml.h
 	POWER_MIZER_MODE_PREFER_CONSISTENT_PERFORMANCE = 3
+	// ProcessesUtilizationInfo_v1 as defined in nvml/nvml.h
+	ProcessesUtilizationInfo_v1 = 0x650720
+	// EccSramErrorStatus_v1 as defined in nvml/nvml.h
+	EccSramErrorStatus_v1 = 0x650720
+	// PlatformInfo_v1 as defined in nvml/nvml.h
+	PlatformInfo_v1 = 0x650720
+	// PlatformInfo_v2 as defined in nvml/nvml.h
+	PlatformInfo_v2 = 0x650720
+	// EccSramUniqueUncorrectedErrorCounts_v1 as defined in nvml/nvml.h
+	EccSramUniqueUncorrectedErrorCounts_v1 = 0x650720
 	// GSP_FIRMWARE_VERSION_BUF_SIZE as defined in nvml/nvml.h
-	GSP_FIRMWARE_VERSION_BUF_SIZE = 64
+	GSP_FIRMWARE_VERSION_BUF_SIZE = 0x40
 	// DEVICE_ARCH_KEPLER as defined in nvml/nvml.h
 	DEVICE_ARCH_KEPLER = 2
 	// DEVICE_ARCH_MAXWELL as defined in nvml/nvml.h
@@ -97,7 +137,7 @@ const (
 	// DEVICE_ARCH_BLACKWELL as defined in nvml/nvml.h
 	DEVICE_ARCH_BLACKWELL = 10
 	// DEVICE_ARCH_UNKNOWN as defined in nvml/nvml.h
-	DEVICE_ARCH_UNKNOWN = 4294967295
+	DEVICE_ARCH_UNKNOWN = 0xffffffff
 	// BUS_TYPE_UNKNOWN as defined in nvml/nvml.h
 	BUS_TYPE_UNKNOWN = 0
 	// BUS_TYPE_PCI as defined in nvml/nvml.h
@@ -113,53 +153,55 @@ const (
 	// FAN_POLICY_MANUAL as defined in nvml/nvml.h
 	FAN_POLICY_MANUAL = 1
 	// POWER_SOURCE_AC as defined in nvml/nvml.h
-	POWER_SOURCE_AC = 0
+	POWER_SOURCE_AC = 0x00000000
 	// POWER_SOURCE_BATTERY as defined in nvml/nvml.h
-	POWER_SOURCE_BATTERY = 1
+	POWER_SOURCE_BATTERY = 0x00000001
 	// POWER_SOURCE_UNDERSIZED as defined in nvml/nvml.h
-	POWER_SOURCE_UNDERSIZED = 2
+	POWER_SOURCE_UNDERSIZED = 0x00000002
 	// PCIE_LINK_MAX_SPEED_INVALID as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_INVALID = 0
+	PCIE_LINK_MAX_SPEED_INVALID = 0x00000000
 	// PCIE_LINK_MAX_SPEED_2500MBPS as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_2500MBPS = 1
+	PCIE_LINK_MAX_SPEED_2500MBPS = 0x00000001
 	// PCIE_LINK_MAX_SPEED_5000MBPS as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_5000MBPS = 2
+	PCIE_LINK_MAX_SPEED_5000MBPS = 0x00000002
 	// PCIE_LINK_MAX_SPEED_8000MBPS as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_8000MBPS = 3
+	PCIE_LINK_MAX_SPEED_8000MBPS = 0x00000003
 	// PCIE_LINK_MAX_SPEED_16000MBPS as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_16000MBPS = 4
+	PCIE_LINK_MAX_SPEED_16000MBPS = 0x00000004
 	// PCIE_LINK_MAX_SPEED_32000MBPS as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_32000MBPS = 5
+	PCIE_LINK_MAX_SPEED_32000MBPS = 0x00000005
 	// PCIE_LINK_MAX_SPEED_64000MBPS as defined in nvml/nvml.h
-	PCIE_LINK_MAX_SPEED_64000MBPS = 6
+	PCIE_LINK_MAX_SPEED_64000MBPS = 0x00000006
 	// ADAPTIVE_CLOCKING_INFO_STATUS_DISABLED as defined in nvml/nvml.h
-	ADAPTIVE_CLOCKING_INFO_STATUS_DISABLED = 0
+	ADAPTIVE_CLOCKING_INFO_STATUS_DISABLED = 0x00000000
 	// ADAPTIVE_CLOCKING_INFO_STATUS_ENABLED as defined in nvml/nvml.h
-	ADAPTIVE_CLOCKING_INFO_STATUS_ENABLED = 1
+	ADAPTIVE_CLOCKING_INFO_STATUS_ENABLED = 0x00000001
 	// MAX_GPU_UTILIZATIONS as defined in nvml/nvml.h
 	MAX_GPU_UTILIZATIONS = 8
 	// PCIE_ATOMICS_CAP_FETCHADD32 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_FETCHADD32 = 1
+	PCIE_ATOMICS_CAP_FETCHADD32 = 0x01
 	// PCIE_ATOMICS_CAP_FETCHADD64 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_FETCHADD64 = 2
+	PCIE_ATOMICS_CAP_FETCHADD64 = 0x02
 	// PCIE_ATOMICS_CAP_SWAP32 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_SWAP32 = 4
+	PCIE_ATOMICS_CAP_SWAP32 = 0x04
 	// PCIE_ATOMICS_CAP_SWAP64 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_SWAP64 = 8
+	PCIE_ATOMICS_CAP_SWAP64 = 0x08
 	// PCIE_ATOMICS_CAP_CAS32 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_CAS32 = 16
+	PCIE_ATOMICS_CAP_CAS32 = 0x10
 	// PCIE_ATOMICS_CAP_CAS64 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_CAS64 = 32
+	PCIE_ATOMICS_CAP_CAS64 = 0x20
 	// PCIE_ATOMICS_CAP_CAS128 as defined in nvml/nvml.h
-	PCIE_ATOMICS_CAP_CAS128 = 64
+	PCIE_ATOMICS_CAP_CAS128 = 0x40
 	// PCIE_ATOMICS_OPS_MAX as defined in nvml/nvml.h
 	PCIE_ATOMICS_OPS_MAX = 7
 	// POWER_SCOPE_GPU as defined in nvml/nvml.h
-	POWER_SCOPE_GPU = 0
+	POWER_SCOPE_GPU = uint32(0)
 	// POWER_SCOPE_MODULE as defined in nvml/nvml.h
-	POWER_SCOPE_MODULE = 1
+	POWER_SCOPE_MODULE = uint32(1)
 	// POWER_SCOPE_MEMORY as defined in nvml/nvml.h
-	POWER_SCOPE_MEMORY = 2
+	POWER_SCOPE_MEMORY = uint32(2)
+	// PowerValue_v2 as defined in nvml/nvml.h
+	PowerValue_v2 = 0x650720
 	// GRID_LICENSE_EXPIRY_NOT_AVAILABLE as defined in nvml/nvml.h
 	GRID_LICENSE_EXPIRY_NOT_AVAILABLE = 0
 	// GRID_LICENSE_EXPIRY_INVALID as defined in nvml/nvml.h
@@ -177,11 +219,27 @@ const (
 	// GRID_LICENSE_FEATURE_MAX_COUNT as defined in nvml/nvml.h
 	GRID_LICENSE_FEATURE_MAX_COUNT = 3
 	// INVALID_VGPU_PLACEMENT_ID as defined in nvml/nvml.h
-	INVALID_VGPU_PLACEMENT_ID = 65535
+	INVALID_VGPU_PLACEMENT_ID = 0xFFFF
 	// VGPU_PGPU_HETEROGENEOUS_MODE as defined in nvml/nvml.h
 	VGPU_PGPU_HETEROGENEOUS_MODE = 0
 	// VGPU_PGPU_HOMOGENEOUS_MODE as defined in nvml/nvml.h
 	VGPU_PGPU_HOMOGENEOUS_MODE = 1
+	// VgpuHeterogeneousMode_v1 as defined in nvml/nvml.h
+	VgpuHeterogeneousMode_v1 = 0x650720
+	// VgpuPlacementId_v1 as defined in nvml/nvml.h
+	VgpuPlacementId_v1 = 0x650720
+	// VgpuPlacementList_v1 as defined in nvml/nvml.h
+	VgpuPlacementList_v1 = 0x650720
+	// VgpuPlacementList_v2 as defined in nvml/nvml.h
+	VgpuPlacementList_v2 = 0x650720
+	// VgpuTypeBar1Info_v1 as defined in nvml/nvml.h
+	VgpuTypeBar1Info_v1 = 0x650720
+	// VgpuInstancesUtilizationInfo_v1 as defined in nvml/nvml.h
+	VgpuInstancesUtilizationInfo_v1 = 0x650720
+	// VgpuProcessesUtilizationInfo_v1 as defined in nvml/nvml.h
+	VgpuProcessesUtilizationInfo_v1 = 0x650720
+	// VgpuRuntimeState_v1 as defined in nvml/nvml.h
+	VgpuRuntimeState_v1 = 0x650720
 	// VGPU_SCHEDULER_POLICY_UNKNOWN as defined in nvml/nvml.h
 	VGPU_SCHEDULER_POLICY_UNKNOWN = 0
 	// VGPU_SCHEDULER_POLICY_BEST_EFFORT as defined in nvml/nvml.h
@@ -214,6 +272,20 @@ const (
 	GRID_LICENSE_STATE_UNLICENSED = 4
 	// GRID_LICENSE_STATE_LICENSED as defined in nvml/nvml.h
 	GRID_LICENSE_STATE_LICENSED = 5
+	// VgpuTypeIdInfo_v1 as defined in nvml/nvml.h
+	VgpuTypeIdInfo_v1 = 0x650720
+	// VgpuTypeMaxInstance_v1 as defined in nvml/nvml.h
+	VgpuTypeMaxInstance_v1 = 0x650720
+	// ActiveVgpuInstanceInfo_v1 as defined in nvml/nvml.h
+	ActiveVgpuInstanceInfo_v1 = 0x650720
+	// VgpuSchedulerState_v1 as defined in nvml/nvml.h
+	VgpuSchedulerState_v1 = 0x650720
+	// VgpuSchedulerStateInfo_v1 as defined in nvml/nvml.h
+	VgpuSchedulerStateInfo_v1 = 0x650720
+	// VgpuSchedulerLogInfo_v1 as defined in nvml/nvml.h
+	VgpuSchedulerLogInfo_v1 = 0x650720
+	// VgpuCreatablePlacementInfo_v1 as defined in nvml/nvml.h
+	VgpuCreatablePlacementInfo_v1 = 0x650720
 	// FI_DEV_ECC_CURRENT as defined in nvml/nvml.h
 	FI_DEV_ECC_CURRENT = 1
 	// FI_DEV_ECC_PENDING as defined in nvml/nvml.h
@@ -715,9 +787,9 @@ const (
 	// FI_DEV_NVLINK_COUNT_FEC_HISTORY_15 as defined in nvml/nvml.h
 	FI_DEV_NVLINK_COUNT_FEC_HISTORY_15 = 250
 	// FI_DEV_CLOCKS_EVENT_REASON_SW_POWER_CAP as defined in nvml/nvml.h
-	FI_DEV_CLOCKS_EVENT_REASON_SW_POWER_CAP = 74
+	FI_DEV_CLOCKS_EVENT_REASON_SW_POWER_CAP = FI_DEV_PERF_POLICY_POWER
 	// FI_DEV_CLOCKS_EVENT_REASON_SYNC_BOOST as defined in nvml/nvml.h
-	FI_DEV_CLOCKS_EVENT_REASON_SYNC_BOOST = 76
+	FI_DEV_CLOCKS_EVENT_REASON_SYNC_BOOST = FI_DEV_PERF_POLICY_SYNC_BOOST
 	// FI_DEV_CLOCKS_EVENT_REASON_SW_THERM_SLOWDOWN as defined in nvml/nvml.h
 	FI_DEV_CLOCKS_EVENT_REASON_SW_THERM_SLOWDOWN = 251
 	// FI_DEV_CLOCKS_EVENT_REASON_HW_THERM_SLOWDOWN as defined in nvml/nvml.h
@@ -767,113 +839,121 @@ const (
 	// FI_MAX as defined in nvml/nvml.h
 	FI_MAX = 274
 	// NVLINK_LOW_POWER_THRESHOLD_UNIT_100US as defined in nvml/nvml.h
-	NVLINK_LOW_POWER_THRESHOLD_UNIT_100US = 0
+	NVLINK_LOW_POWER_THRESHOLD_UNIT_100US = 0x0
 	// NVLINK_LOW_POWER_THRESHOLD_UNIT_50US as defined in nvml/nvml.h
-	NVLINK_LOW_POWER_THRESHOLD_UNIT_50US = 1
+	NVLINK_LOW_POWER_THRESHOLD_UNIT_50US = 0x1
 	// NVLINK_POWER_STATE_HIGH_SPEED as defined in nvml/nvml.h
-	NVLINK_POWER_STATE_HIGH_SPEED = 0
+	NVLINK_POWER_STATE_HIGH_SPEED = 0x0
 	// NVLINK_POWER_STATE_LOW as defined in nvml/nvml.h
-	NVLINK_POWER_STATE_LOW = 1
+	NVLINK_POWER_STATE_LOW = 0x1
 	// NVLINK_LOW_POWER_THRESHOLD_MIN as defined in nvml/nvml.h
-	NVLINK_LOW_POWER_THRESHOLD_MIN = 1
+	NVLINK_LOW_POWER_THRESHOLD_MIN = 0x1
 	// NVLINK_LOW_POWER_THRESHOLD_MAX as defined in nvml/nvml.h
-	NVLINK_LOW_POWER_THRESHOLD_MAX = 8191
+	NVLINK_LOW_POWER_THRESHOLD_MAX = 0x1FFF
 	// NVLINK_LOW_POWER_THRESHOLD_RESET as defined in nvml/nvml.h
-	NVLINK_LOW_POWER_THRESHOLD_RESET = 4294967295
+	NVLINK_LOW_POWER_THRESHOLD_RESET = 0xFFFFFFFF
 	// NVLINK_LOW_POWER_THRESHOLD_DEFAULT as defined in nvml/nvml.h
-	NVLINK_LOW_POWER_THRESHOLD_DEFAULT = 4294967295
+	NVLINK_LOW_POWER_THRESHOLD_DEFAULT = NVLINK_LOW_POWER_THRESHOLD_RESET
 	// C2C_POWER_STATE_FULL_POWER as defined in nvml/nvml.h
 	C2C_POWER_STATE_FULL_POWER = 0
 	// C2C_POWER_STATE_LOW_POWER as defined in nvml/nvml.h
 	C2C_POWER_STATE_LOW_POWER = 1
 	// EventTypeNone as defined in nvml/nvml.h
-	EventTypeNone = 0
+	EventTypeNone = int64(0x0000000000000000)
 	// EventTypeSingleBitEccError as defined in nvml/nvml.h
-	EventTypeSingleBitEccError = 1
+	EventTypeSingleBitEccError = int64(0x0000000000000001)
 	// EventTypeDoubleBitEccError as defined in nvml/nvml.h
-	EventTypeDoubleBitEccError = 2
+	EventTypeDoubleBitEccError = int64(0x0000000000000002)
 	// EventTypePState as defined in nvml/nvml.h
-	EventTypePState = 4
+	EventTypePState = int64(0x0000000000000004)
 	// EventTypeXidCriticalError as defined in nvml/nvml.h
-	EventTypeXidCriticalError = 8
+	EventTypeXidCriticalError = int64(0x0000000000000008)
 	// EventTypeClock as defined in nvml/nvml.h
-	EventTypeClock = 16
+	EventTypeClock = int64(0x0000000000000010)
 	// EventTypePowerSourceChange as defined in nvml/nvml.h
-	EventTypePowerSourceChange = 128
+	EventTypePowerSourceChange = int64(0x0000000000000080)
 	// EventMigConfigChange as defined in nvml/nvml.h
-	EventMigConfigChange = 256
+	EventMigConfigChange = int64(0x0000000000000100)
 	// EventTypeSingleBitEccErrorStorm as defined in nvml/nvml.h
-	EventTypeSingleBitEccErrorStorm = 512
+	EventTypeSingleBitEccErrorStorm = int64(0x0000000000000200)
 	// EventTypeDramRetirementEvent as defined in nvml/nvml.h
-	EventTypeDramRetirementEvent = 1024
+	EventTypeDramRetirementEvent = int64(0x0000000000000400)
 	// EventTypeDramRetirementFailure as defined in nvml/nvml.h
-	EventTypeDramRetirementFailure = 2048
+	EventTypeDramRetirementFailure = int64(0x0000000000000800)
 	// EventTypeNonFatalPoisonError as defined in nvml/nvml.h
-	EventTypeNonFatalPoisonError = 4096
+	EventTypeNonFatalPoisonError = int64(0x0000000000001000)
 	// EventTypeFatalPoisonError as defined in nvml/nvml.h
-	EventTypeFatalPoisonError = 8192
+	EventTypeFatalPoisonError = int64(0x0000000000002000)
 	// EventTypeGpuUnavailableError as defined in nvml/nvml.h
-	EventTypeGpuUnavailableError = 16384
+	EventTypeGpuUnavailableError = int64(0x0000000000004000)
 	// EventTypeGpuRecoveryAction as defined in nvml/nvml.h
-	EventTypeGpuRecoveryAction = 32768
+	EventTypeGpuRecoveryAction = int64(0x0000000000008000)
 	// EventTypeAll as defined in nvml/nvml.h
-	EventTypeAll = 65439
+	EventTypeAll = (EventTypeNone | EventTypeSingleBitEccError | EventTypeDoubleBitEccError | EventTypePState | EventTypeClock | EventTypeXidCriticalError | EventTypePowerSourceChange | EventMigConfigChange | EventTypeSingleBitEccErrorStorm | EventTypeDramRetirementEvent | EventTypeDramRetirementFailure | EventTypeNonFatalPoisonError | EventTypeFatalPoisonError | EventTypeGpuUnavailableError | EventTypeGpuRecoveryAction)
 	// SystemEventTypeGpuDriverUnbind as defined in nvml/nvml.h
-	SystemEventTypeGpuDriverUnbind = 1
+	SystemEventTypeGpuDriverUnbind = int64(0x0000000000000001)
 	// SystemEventTypeGpuDriverBind as defined in nvml/nvml.h
-	SystemEventTypeGpuDriverBind = 2
+	SystemEventTypeGpuDriverBind = int64(0x0000000000000002)
 	// SystemEventTypeCount as defined in nvml/nvml.h
 	SystemEventTypeCount = 2
+	// SystemEventSetCreateRequest_v1 as defined in nvml/nvml.h
+	SystemEventSetCreateRequest_v1 = 0x650720
+	// SystemEventSetFreeRequest_v1 as defined in nvml/nvml.h
+	SystemEventSetFreeRequest_v1 = 0x650720
+	// SystemRegisterEventRequest_v1 as defined in nvml/nvml.h
+	SystemRegisterEventRequest_v1 = 0x650720
+	// SystemEventSetWaitRequest_v1 as defined in nvml/nvml.h
+	SystemEventSetWaitRequest_v1 = 0x650720
 	// ClocksEventReasonGpuIdle as defined in nvml/nvml.h
-	ClocksEventReasonGpuIdle = 1
+	ClocksEventReasonGpuIdle = int64(0x0000000000000001)
 	// ClocksEventReasonApplicationsClocksSetting as defined in nvml/nvml.h
-	ClocksEventReasonApplicationsClocksSetting = 2
+	ClocksEventReasonApplicationsClocksSetting = int64(0x0000000000000002)
 	// ClocksThrottleReasonUserDefinedClocks as defined in nvml/nvml.h
-	ClocksThrottleReasonUserDefinedClocks = 2
+	ClocksThrottleReasonUserDefinedClocks = ClocksEventReasonApplicationsClocksSetting
 	// ClocksEventReasonSwPowerCap as defined in nvml/nvml.h
-	ClocksEventReasonSwPowerCap = 4
+	ClocksEventReasonSwPowerCap = int64(0x0000000000000004)
 	// ClocksThrottleReasonHwSlowdown as defined in nvml/nvml.h
-	ClocksThrottleReasonHwSlowdown = 8
+	ClocksThrottleReasonHwSlowdown = int64(0x0000000000000008)
 	// ClocksEventReasonSyncBoost as defined in nvml/nvml.h
-	ClocksEventReasonSyncBoost = 16
+	ClocksEventReasonSyncBoost = int64(0x0000000000000010)
 	// ClocksEventReasonSwThermalSlowdown as defined in nvml/nvml.h
-	ClocksEventReasonSwThermalSlowdown = 32
+	ClocksEventReasonSwThermalSlowdown = int64(0x0000000000000020)
 	// ClocksThrottleReasonHwThermalSlowdown as defined in nvml/nvml.h
-	ClocksThrottleReasonHwThermalSlowdown = 64
+	ClocksThrottleReasonHwThermalSlowdown = int64(0x0000000000000040)
 	// ClocksThrottleReasonHwPowerBrakeSlowdown as defined in nvml/nvml.h
-	ClocksThrottleReasonHwPowerBrakeSlowdown = 128
+	ClocksThrottleReasonHwPowerBrakeSlowdown = int64(0x0000000000000080)
 	// ClocksEventReasonDisplayClockSetting as defined in nvml/nvml.h
-	ClocksEventReasonDisplayClockSetting = 256
+	ClocksEventReasonDisplayClockSetting = int64(0x0000000000000100)
 	// ClocksEventReasonNone as defined in nvml/nvml.h
-	ClocksEventReasonNone = 0
+	ClocksEventReasonNone = int64(0x0000000000000000)
 	// ClocksEventReasonAll as defined in nvml/nvml.h
-	ClocksEventReasonAll = 511
+	ClocksEventReasonAll = (ClocksThrottleReasonNone | ClocksEventReasonGpuIdle | ClocksEventReasonApplicationsClocksSetting | ClocksEventReasonSwPowerCap | ClocksThrottleReasonHwSlowdown | ClocksEventReasonSyncBoost | ClocksEventReasonSwThermalSlowdown | ClocksThrottleReasonHwThermalSlowdown | ClocksThrottleReasonHwPowerBrakeSlowdown | ClocksEventReasonDisplayClockSetting)
 	// ClocksThrottleReasonGpuIdle as defined in nvml/nvml.h
-	ClocksThrottleReasonGpuIdle = 1
+	ClocksThrottleReasonGpuIdle = ClocksEventReasonGpuIdle
 	// ClocksThrottleReasonApplicationsClocksSetting as defined in nvml/nvml.h
-	ClocksThrottleReasonApplicationsClocksSetting = 2
+	ClocksThrottleReasonApplicationsClocksSetting = ClocksEventReasonApplicationsClocksSetting
 	// ClocksThrottleReasonSyncBoost as defined in nvml/nvml.h
-	ClocksThrottleReasonSyncBoost = 16
+	ClocksThrottleReasonSyncBoost = ClocksEventReasonSyncBoost
 	// ClocksThrottleReasonSwPowerCap as defined in nvml/nvml.h
-	ClocksThrottleReasonSwPowerCap = 4
+	ClocksThrottleReasonSwPowerCap = ClocksEventReasonSwPowerCap
 	// ClocksThrottleReasonSwThermalSlowdown as defined in nvml/nvml.h
-	ClocksThrottleReasonSwThermalSlowdown = 32
+	ClocksThrottleReasonSwThermalSlowdown = ClocksEventReasonSwThermalSlowdown
 	// ClocksThrottleReasonDisplayClockSetting as defined in nvml/nvml.h
-	ClocksThrottleReasonDisplayClockSetting = 256
+	ClocksThrottleReasonDisplayClockSetting = ClocksEventReasonDisplayClockSetting
 	// ClocksThrottleReasonNone as defined in nvml/nvml.h
-	ClocksThrottleReasonNone = 0
+	ClocksThrottleReasonNone = ClocksEventReasonNone
 	// ClocksThrottleReasonAll as defined in nvml/nvml.h
-	ClocksThrottleReasonAll = 511
+	ClocksThrottleReasonAll = ClocksEventReasonAll
 	// NVFBC_SESSION_FLAG_DIFFMAP_ENABLED as defined in nvml/nvml.h
-	NVFBC_SESSION_FLAG_DIFFMAP_ENABLED = 1
+	NVFBC_SESSION_FLAG_DIFFMAP_ENABLED = 0x00000001
 	// NVFBC_SESSION_FLAG_CLASSIFICATIONMAP_ENABLED as defined in nvml/nvml.h
-	NVFBC_SESSION_FLAG_CLASSIFICATIONMAP_ENABLED = 2
+	NVFBC_SESSION_FLAG_CLASSIFICATIONMAP_ENABLED = 0x00000002
 	// NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_NO_WAIT as defined in nvml/nvml.h
-	NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_NO_WAIT = 4
+	NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_NO_WAIT = 0x00000004
 	// NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_INFINITE as defined in nvml/nvml.h
-	NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_INFINITE = 8
+	NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_INFINITE = 0x00000008
 	// NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_TIMEOUT as defined in nvml/nvml.h
-	NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_TIMEOUT = 16
+	NVFBC_SESSION_FLAG_CAPTURE_WITH_WAIT_TIMEOUT = 0x00000010
 	// CC_SYSTEM_CPU_CAPS_NONE as defined in nvml/nvml.h
 	CC_SYSTEM_CPU_CAPS_NONE = 0
 	// CC_SYSTEM_CPU_CAPS_AMD_SEV as defined in nvml/nvml.h
@@ -908,6 +988,8 @@ const (
 	CC_SYSTEM_MULTIGPU_PROTECTED_PCIE = 1
 	// CC_SYSTEM_MULTIGPU_NVLE as defined in nvml/nvml.h
 	CC_SYSTEM_MULTIGPU_NVLE = 2
+	// SystemConfComputeSettings_v1 as defined in nvml/nvml.h
+	SystemConfComputeSettings_v1 = 0x650720
 	// CC_ACCEPTING_CLIENT_REQUESTS_FALSE as defined in nvml/nvml.h
 	CC_ACCEPTING_CLIENT_REQUESTS_FALSE = 0
 	// CC_ACCEPTING_CLIENT_REQUESTS_TRUE as defined in nvml/nvml.h
@@ -930,6 +1012,10 @@ const (
 	CC_KEY_ROTATION_THRESHOLD_ATTACKER_ADVANTAGE_MIN = 50
 	// CC_KEY_ROTATION_THRESHOLD_ATTACKER_ADVANTAGE_MAX as defined in nvml/nvml.h
 	CC_KEY_ROTATION_THRESHOLD_ATTACKER_ADVANTAGE_MAX = 65
+	// ConfComputeSetKeyRotationThresholdInfo_v1 as defined in nvml/nvml.h
+	ConfComputeSetKeyRotationThresholdInfo_v1 = 0x650720
+	// ConfComputeGetKeyRotationThresholdInfo_v1 as defined in nvml/nvml.h
+	ConfComputeGetKeyRotationThresholdInfo_v1 = 0x650720
 	// GPU_FABRIC_UUID_LEN as defined in nvml/nvml.h
 	GPU_FABRIC_UUID_LEN = 16
 	// GPU_FABRIC_STATE_NOT_SUPPORTED as defined in nvml/nvml.h
@@ -949,7 +1035,7 @@ const (
 	// GPU_FABRIC_HEALTH_MASK_SHIFT_DEGRADED_BW as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_SHIFT_DEGRADED_BW = 0
 	// GPU_FABRIC_HEALTH_MASK_WIDTH_DEGRADED_BW as defined in nvml/nvml.h
-	GPU_FABRIC_HEALTH_MASK_WIDTH_DEGRADED_BW = 3
+	GPU_FABRIC_HEALTH_MASK_WIDTH_DEGRADED_BW = 0x3
 	// GPU_FABRIC_HEALTH_MASK_ROUTE_RECOVERY_NOT_SUPPORTED as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_ROUTE_RECOVERY_NOT_SUPPORTED = 0
 	// GPU_FABRIC_HEALTH_MASK_ROUTE_RECOVERY_TRUE as defined in nvml/nvml.h
@@ -959,7 +1045,7 @@ const (
 	// GPU_FABRIC_HEALTH_MASK_SHIFT_ROUTE_RECOVERY as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_SHIFT_ROUTE_RECOVERY = 2
 	// GPU_FABRIC_HEALTH_MASK_WIDTH_ROUTE_RECOVERY as defined in nvml/nvml.h
-	GPU_FABRIC_HEALTH_MASK_WIDTH_ROUTE_RECOVERY = 3
+	GPU_FABRIC_HEALTH_MASK_WIDTH_ROUTE_RECOVERY = 0x3
 	// GPU_FABRIC_HEALTH_MASK_ROUTE_UNHEALTHY_NOT_SUPPORTED as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_ROUTE_UNHEALTHY_NOT_SUPPORTED = 0
 	// GPU_FABRIC_HEALTH_MASK_ROUTE_UNHEALTHY_TRUE as defined in nvml/nvml.h
@@ -969,7 +1055,7 @@ const (
 	// GPU_FABRIC_HEALTH_MASK_SHIFT_ROUTE_UNHEALTHY as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_SHIFT_ROUTE_UNHEALTHY = 4
 	// GPU_FABRIC_HEALTH_MASK_WIDTH_ROUTE_UNHEALTHY as defined in nvml/nvml.h
-	GPU_FABRIC_HEALTH_MASK_WIDTH_ROUTE_UNHEALTHY = 3
+	GPU_FABRIC_HEALTH_MASK_WIDTH_ROUTE_UNHEALTHY = 0x3
 	// GPU_FABRIC_HEALTH_MASK_ACCESS_TIMEOUT_RECOVERY_NOT_SUPPORTED as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_ACCESS_TIMEOUT_RECOVERY_NOT_SUPPORTED = 0
 	// GPU_FABRIC_HEALTH_MASK_ACCESS_TIMEOUT_RECOVERY_TRUE as defined in nvml/nvml.h
@@ -979,7 +1065,7 @@ const (
 	// GPU_FABRIC_HEALTH_MASK_SHIFT_ACCESS_TIMEOUT_RECOVERY as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_SHIFT_ACCESS_TIMEOUT_RECOVERY = 6
 	// GPU_FABRIC_HEALTH_MASK_WIDTH_ACCESS_TIMEOUT_RECOVERY as defined in nvml/nvml.h
-	GPU_FABRIC_HEALTH_MASK_WIDTH_ACCESS_TIMEOUT_RECOVERY = 3
+	GPU_FABRIC_HEALTH_MASK_WIDTH_ACCESS_TIMEOUT_RECOVERY = 0x3
 	// GPU_FABRIC_HEALTH_MASK_INCORRECT_CONFIGURATION_NOT_SUPPORTED as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_INCORRECT_CONFIGURATION_NOT_SUPPORTED = 0
 	// GPU_FABRIC_HEALTH_MASK_INCORRECT_CONFIGURATION_NONE as defined in nvml/nvml.h
@@ -995,7 +1081,7 @@ const (
 	// GPU_FABRIC_HEALTH_MASK_SHIFT_INCORRECT_CONFIGURATION as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_MASK_SHIFT_INCORRECT_CONFIGURATION = 8
 	// GPU_FABRIC_HEALTH_MASK_WIDTH_INCORRECT_CONFIGURATION as defined in nvml/nvml.h
-	GPU_FABRIC_HEALTH_MASK_WIDTH_INCORRECT_CONFIGURATION = 15
+	GPU_FABRIC_HEALTH_MASK_WIDTH_INCORRECT_CONFIGURATION = 0xf
 	// GPU_FABRIC_HEALTH_SUMMARY_NOT_SUPPORTED as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_SUMMARY_NOT_SUPPORTED = 0
 	// GPU_FABRIC_HEALTH_SUMMARY_HEALTHY as defined in nvml/nvml.h
@@ -1004,6 +1090,10 @@ const (
 	GPU_FABRIC_HEALTH_SUMMARY_UNHEALTHY = 2
 	// GPU_FABRIC_HEALTH_SUMMARY_LIMITED_CAPACITY as defined in nvml/nvml.h
 	GPU_FABRIC_HEALTH_SUMMARY_LIMITED_CAPACITY = 3
+	// GpuFabricInfo_v2 as defined in nvml/nvml.h
+	GpuFabricInfo_v2 = 0x650720
+	// GpuFabricInfo_v3 as defined in nvml/nvml.h
+	GpuFabricInfo_v3 = 0x650720
 	// INIT_FLAG_NO_GPUS as defined in nvml/nvml.h
 	INIT_FLAG_NO_GPUS = 1
 	// INIT_FLAG_NO_ATTACH as defined in nvml/nvml.h
@@ -1028,124 +1118,156 @@ const (
 	DEVICE_SERIAL_BUFFER_SIZE = 30
 	// DEVICE_VBIOS_VERSION_BUFFER_SIZE as defined in nvml/nvml.h
 	DEVICE_VBIOS_VERSION_BUFFER_SIZE = 32
+	// SystemDriverBranchInfo_v1 as defined in nvml/nvml.h
+	SystemDriverBranchInfo_v1 = 0x650720
 	// AFFINITY_SCOPE_NODE as defined in nvml/nvml.h
 	AFFINITY_SCOPE_NODE = 0
 	// AFFINITY_SCOPE_SOCKET as defined in nvml/nvml.h
 	AFFINITY_SCOPE_SOCKET = 1
+	// Temperature_v1 as defined in nvml/nvml.h
+	Temperature_v1 = 0x650720
 	// NVLINK_BER_MANTISSA_SHIFT as defined in nvml/nvml.h
 	NVLINK_BER_MANTISSA_SHIFT = 8
 	// NVLINK_BER_MANTISSA_WIDTH as defined in nvml/nvml.h
-	NVLINK_BER_MANTISSA_WIDTH = 15
+	NVLINK_BER_MANTISSA_WIDTH = 0xf
 	// NVLINK_BER_EXP_SHIFT as defined in nvml/nvml.h
 	NVLINK_BER_EXP_SHIFT = 0
 	// NVLINK_BER_EXP_WIDTH as defined in nvml/nvml.h
-	NVLINK_BER_EXP_WIDTH = 255
+	NVLINK_BER_EXP_WIDTH = 0xff
 	// NVLINK_STATE_INACTIVE as defined in nvml/nvml.h
-	NVLINK_STATE_INACTIVE = 0
+	NVLINK_STATE_INACTIVE = 0x0
 	// NVLINK_STATE_ACTIVE as defined in nvml/nvml.h
-	NVLINK_STATE_ACTIVE = 1
+	NVLINK_STATE_ACTIVE = 0x1
 	// NVLINK_STATE_SLEEP as defined in nvml/nvml.h
-	NVLINK_STATE_SLEEP = 2
+	NVLINK_STATE_SLEEP = 0x2
 	// NVLINK_TOTAL_SUPPORTED_BW_MODES as defined in nvml/nvml.h
 	NVLINK_TOTAL_SUPPORTED_BW_MODES = 23
+	// NvlinkSupportedBwModes_v1 as defined in nvml/nvml.h
+	NvlinkSupportedBwModes_v1 = 0x650720
+	// NvlinkGetBwMode_v1 as defined in nvml/nvml.h
+	NvlinkGetBwMode_v1 = 0x650720
+	// NvlinkSetBwMode_v1 as defined in nvml/nvml.h
+	NvlinkSetBwMode_v1 = 0x650720
+	// NvLinkInfo_v1 as defined in nvml/nvml.h
+	NvLinkInfo_v1 = 0x650720
 	// NVLINK_FIRMWARE_UCODE_TYPE_MSE as defined in nvml/nvml.h
-	NVLINK_FIRMWARE_UCODE_TYPE_MSE = 1
+	NVLINK_FIRMWARE_UCODE_TYPE_MSE = 0x1
 	// NVLINK_FIRMWARE_UCODE_TYPE_NETIR as defined in nvml/nvml.h
-	NVLINK_FIRMWARE_UCODE_TYPE_NETIR = 2
+	NVLINK_FIRMWARE_UCODE_TYPE_NETIR = 0x2
 	// NVLINK_FIRMWARE_UCODE_TYPE_NETIR_UPHY as defined in nvml/nvml.h
-	NVLINK_FIRMWARE_UCODE_TYPE_NETIR_UPHY = 3
+	NVLINK_FIRMWARE_UCODE_TYPE_NETIR_UPHY = 0x3
 	// NVLINK_FIRMWARE_UCODE_TYPE_NETIR_CLN as defined in nvml/nvml.h
-	NVLINK_FIRMWARE_UCODE_TYPE_NETIR_CLN = 4
+	NVLINK_FIRMWARE_UCODE_TYPE_NETIR_CLN = 0x4
 	// NVLINK_FIRMWARE_UCODE_TYPE_NETIR_DLN as defined in nvml/nvml.h
-	NVLINK_FIRMWARE_UCODE_TYPE_NETIR_DLN = 5
+	NVLINK_FIRMWARE_UCODE_TYPE_NETIR_DLN = 0x5
 	// NVLINK_FIRMWARE_VERSION_LENGTH as defined in nvml/nvml.h
 	NVLINK_FIRMWARE_VERSION_LENGTH = 100
+	// NvLinkInfo_v2 as defined in nvml/nvml.h
+	NvLinkInfo_v2 = 0x650720
 	// PRM_DATA_MAX_SIZE as defined in nvml/nvml.h
 	PRM_DATA_MAX_SIZE = 496
 	// DEVICE_MIG_DISABLE as defined in nvml/nvml.h
-	DEVICE_MIG_DISABLE = 0
+	DEVICE_MIG_DISABLE = 0x0
 	// DEVICE_MIG_ENABLE as defined in nvml/nvml.h
-	DEVICE_MIG_ENABLE = 1
+	DEVICE_MIG_ENABLE = 0x1
 	// GPU_INSTANCE_PROFILE_1_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_1_SLICE = 0
+	GPU_INSTANCE_PROFILE_1_SLICE = 0x0
 	// GPU_INSTANCE_PROFILE_2_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_2_SLICE = 1
+	GPU_INSTANCE_PROFILE_2_SLICE = 0x1
 	// GPU_INSTANCE_PROFILE_3_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_3_SLICE = 2
+	GPU_INSTANCE_PROFILE_3_SLICE = 0x2
 	// GPU_INSTANCE_PROFILE_4_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_4_SLICE = 3
+	GPU_INSTANCE_PROFILE_4_SLICE = 0x3
 	// GPU_INSTANCE_PROFILE_7_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_7_SLICE = 4
+	GPU_INSTANCE_PROFILE_7_SLICE = 0x4
 	// GPU_INSTANCE_PROFILE_8_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_8_SLICE = 5
+	GPU_INSTANCE_PROFILE_8_SLICE = 0x5
 	// GPU_INSTANCE_PROFILE_6_SLICE as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_6_SLICE = 6
+	GPU_INSTANCE_PROFILE_6_SLICE = 0x6
 	// GPU_INSTANCE_PROFILE_1_SLICE_REV1 as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_1_SLICE_REV1 = 7
+	GPU_INSTANCE_PROFILE_1_SLICE_REV1 = 0x7
 	// GPU_INSTANCE_PROFILE_2_SLICE_REV1 as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_2_SLICE_REV1 = 8
+	GPU_INSTANCE_PROFILE_2_SLICE_REV1 = 0x8
 	// GPU_INSTANCE_PROFILE_1_SLICE_REV2 as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_1_SLICE_REV2 = 9
+	GPU_INSTANCE_PROFILE_1_SLICE_REV2 = 0x9
 	// GPU_INSTANCE_PROFILE_1_SLICE_GFX as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_1_SLICE_GFX = 10
+	GPU_INSTANCE_PROFILE_1_SLICE_GFX = 0x0A
 	// GPU_INSTANCE_PROFILE_2_SLICE_GFX as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_2_SLICE_GFX = 11
+	GPU_INSTANCE_PROFILE_2_SLICE_GFX = 0x0B
 	// GPU_INSTANCE_PROFILE_4_SLICE_GFX as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_4_SLICE_GFX = 12
+	GPU_INSTANCE_PROFILE_4_SLICE_GFX = 0x0C
 	// GPU_INSTANCE_PROFILE_1_SLICE_NO_ME as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_1_SLICE_NO_ME = 13
+	GPU_INSTANCE_PROFILE_1_SLICE_NO_ME = 0x0D
 	// GPU_INSTANCE_PROFILE_2_SLICE_NO_ME as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_2_SLICE_NO_ME = 14
+	GPU_INSTANCE_PROFILE_2_SLICE_NO_ME = 0x0E
 	// GPU_INSTANCE_PROFILE_1_SLICE_ALL_ME as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_1_SLICE_ALL_ME = 15
+	GPU_INSTANCE_PROFILE_1_SLICE_ALL_ME = 0x0F
 	// GPU_INSTANCE_PROFILE_2_SLICE_ALL_ME as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_2_SLICE_ALL_ME = 16
+	GPU_INSTANCE_PROFILE_2_SLICE_ALL_ME = 0x10
 	// GPU_INSTANCE_PROFILE_COUNT as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_COUNT = 17
+	GPU_INSTANCE_PROFILE_COUNT = 0x11
 	// GPU_INSTANCE_PROFILE_CAPS_P2P as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_CAPS_P2P = 1
+	GPU_INSTANCE_PROFILE_CAPS_P2P = 0x1
 	// GPU_INTSTANCE_PROFILE_CAPS_P2P as defined in nvml/nvml.h
-	GPU_INTSTANCE_PROFILE_CAPS_P2P = 1
+	GPU_INTSTANCE_PROFILE_CAPS_P2P = 0x1
 	// GPU_INSTANCE_PROFILE_CAPS_GFX as defined in nvml/nvml.h
-	GPU_INSTANCE_PROFILE_CAPS_GFX = 2
+	GPU_INSTANCE_PROFILE_CAPS_GFX = 0x2
 	// COMPUTE_INSTANCE_PROFILE_CAPS_GFX as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_CAPS_GFX = 1
+	COMPUTE_INSTANCE_PROFILE_CAPS_GFX = 0x1
+	// GpuInstanceProfileInfo_v2 as defined in nvml/nvml.h
+	GpuInstanceProfileInfo_v2 = 0x650720
+	// GpuInstanceProfileInfo_v3 as defined in nvml/nvml.h
+	GpuInstanceProfileInfo_v3 = 0x650720
 	// COMPUTE_INSTANCE_PROFILE_1_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_1_SLICE = 0
+	COMPUTE_INSTANCE_PROFILE_1_SLICE = 0x0
 	// COMPUTE_INSTANCE_PROFILE_2_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_2_SLICE = 1
+	COMPUTE_INSTANCE_PROFILE_2_SLICE = 0x1
 	// COMPUTE_INSTANCE_PROFILE_3_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_3_SLICE = 2
+	COMPUTE_INSTANCE_PROFILE_3_SLICE = 0x2
 	// COMPUTE_INSTANCE_PROFILE_4_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_4_SLICE = 3
+	COMPUTE_INSTANCE_PROFILE_4_SLICE = 0x3
 	// COMPUTE_INSTANCE_PROFILE_7_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_7_SLICE = 4
+	COMPUTE_INSTANCE_PROFILE_7_SLICE = 0x4
 	// COMPUTE_INSTANCE_PROFILE_8_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_8_SLICE = 5
+	COMPUTE_INSTANCE_PROFILE_8_SLICE = 0x5
 	// COMPUTE_INSTANCE_PROFILE_6_SLICE as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_6_SLICE = 6
+	COMPUTE_INSTANCE_PROFILE_6_SLICE = 0x6
 	// COMPUTE_INSTANCE_PROFILE_1_SLICE_REV1 as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_1_SLICE_REV1 = 7
+	COMPUTE_INSTANCE_PROFILE_1_SLICE_REV1 = 0x7
 	// COMPUTE_INSTANCE_PROFILE_COUNT as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_PROFILE_COUNT = 8
+	COMPUTE_INSTANCE_PROFILE_COUNT = 0x8
 	// COMPUTE_INSTANCE_ENGINE_PROFILE_SHARED as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_ENGINE_PROFILE_SHARED = 0
+	COMPUTE_INSTANCE_ENGINE_PROFILE_SHARED = 0x0
 	// COMPUTE_INSTANCE_ENGINE_PROFILE_COUNT as defined in nvml/nvml.h
-	COMPUTE_INSTANCE_ENGINE_PROFILE_COUNT = 1
+	COMPUTE_INSTANCE_ENGINE_PROFILE_COUNT = 0x1
+	// ComputeInstanceProfileInfo_v2 as defined in nvml/nvml.h
+	ComputeInstanceProfileInfo_v2 = 0x650720
+	// ComputeInstanceProfileInfo_v3 as defined in nvml/nvml.h
+	ComputeInstanceProfileInfo_v3 = 0x650720
 	// GPM_METRICS_GET_VERSION as defined in nvml/nvml.h
 	GPM_METRICS_GET_VERSION = 1
 	// GPM_SUPPORT_VERSION as defined in nvml/nvml.h
 	GPM_SUPPORT_VERSION = 1
 	// DEV_CAP_EGM as defined in nvml/nvml.h
-	DEV_CAP_EGM = 1
+	DEV_CAP_EGM = (1 << 0)
+	// DeviceCapabilities_v1 as defined in nvml/nvml.h
+	DeviceCapabilities_v1 = 0x650720
 	// WORKLOAD_POWER_MAX_PROFILES as defined in nvml/nvml.h
 	WORKLOAD_POWER_MAX_PROFILES = 255
+	// WorkloadPowerProfileInfo_v1 as defined in nvml/nvml.h
+	WorkloadPowerProfileInfo_v1 = 0x650720
+	// WorkloadPowerProfileProfilesInfo_v1 as defined in nvml/nvml.h
+	WorkloadPowerProfileProfilesInfo_v1 = 0x650720
+	// WorkloadPowerProfileCurrentProfiles_v1 as defined in nvml/nvml.h
+	WorkloadPowerProfileCurrentProfiles_v1 = 0x650720
+	// WorkloadPowerProfileRequestedProfiles_v1 as defined in nvml/nvml.h
+	WorkloadPowerProfileRequestedProfiles_v1 = 0x650720
 	// POWER_SMOOTHING_MAX_NUM_PROFILES as defined in nvml/nvml.h
 	POWER_SMOOTHING_MAX_NUM_PROFILES = 5
 	// POWER_SMOOTHING_NUM_PROFILE_PARAMS as defined in nvml/nvml.h
 	POWER_SMOOTHING_NUM_PROFILE_PARAMS = 4
 	// POWER_SMOOTHING_ADMIN_OVERRIDE_NOT_SET as defined in nvml/nvml.h
-	POWER_SMOOTHING_ADMIN_OVERRIDE_NOT_SET = 4294967295
+	POWER_SMOOTHING_ADMIN_OVERRIDE_NOT_SET = uint32(0xFFFFFFFF)
 	// POWER_SMOOTHING_PROFILE_PARAM_PERCENT_TMP_FLOOR as defined in nvml/nvml.h
 	POWER_SMOOTHING_PROFILE_PARAM_PERCENT_TMP_FLOOR = 0
 	// POWER_SMOOTHING_PROFILE_PARAM_RAMP_UP_RATE as defined in nvml/nvml.h
@@ -1154,6 +1276,22 @@ const (
 	POWER_SMOOTHING_PROFILE_PARAM_RAMP_DOWN_RATE = 2
 	// POWER_SMOOTHING_PROFILE_PARAM_RAMP_DOWN_HYSTERESIS as defined in nvml/nvml.h
 	POWER_SMOOTHING_PROFILE_PARAM_RAMP_DOWN_HYSTERESIS = 3
+	// PowerSmoothingProfile_v1 as defined in nvml/nvml.h
+	PowerSmoothingProfile_v1 = 0x650720
+	// PowerSmoothingState_v1 as defined in nvml/nvml.h
+	PowerSmoothingState_v1 = 0x650720
+	// NO_UNVERSIONED_FUNC_DEFS as defined in go-nvml/<predefined>:368
+	NO_UNVERSIONED_FUNC_DEFS = 1
+)
+
+// DeviceAddressingModeType as declared in nvml/nvml.h
+type DeviceAddressingModeType int32
+
+// DeviceAddressingModeType enumeration from nvml/nvml.h
+const (
+	DEVICE_ADDRESSING_MODE_NONE DeviceAddressingModeType = iota
+	DEVICE_ADDRESSING_MODE_HMM  DeviceAddressingModeType = 1
+	DEVICE_ADDRESSING_MODE_ATS  DeviceAddressingModeType = 2
 )
 
 // BridgeChipType as declared in nvml/nvml.h
@@ -1332,6 +1470,49 @@ const (
 	PERF_POLICY_COUNT             PerfPolicyType = 12
 )
 
+// ThermalTarget as declared in nvml/nvml.h
+type ThermalTarget int32
+
+// ThermalTarget enumeration from nvml/nvml.h
+const (
+	THERMAL_TARGET_NONE         ThermalTarget = iota
+	THERMAL_TARGET_GPU          ThermalTarget = 1
+	THERMAL_TARGET_MEMORY       ThermalTarget = 2
+	THERMAL_TARGET_POWER_SUPPLY ThermalTarget = 4
+	THERMAL_TARGET_BOARD        ThermalTarget = 8
+	THERMAL_TARGET_VCD_BOARD    ThermalTarget = 9
+	THERMAL_TARGET_VCD_INLET    ThermalTarget = 10
+	THERMAL_TARGET_VCD_OUTLET   ThermalTarget = 11
+	THERMAL_TARGET_ALL          ThermalTarget = 15
+	THERMAL_TARGET_UNKNOWN      ThermalTarget = -1
+)
+
+// ThermalController as declared in nvml/nvml.h
+type ThermalController int32
+
+// ThermalController enumeration from nvml/nvml.h
+const (
+	THERMAL_CONTROLLER_NONE            ThermalController = iota
+	THERMAL_CONTROLLER_GPU_INTERNAL    ThermalController = 1
+	THERMAL_CONTROLLER_ADM1032         ThermalController = 2
+	THERMAL_CONTROLLER_ADT7461         ThermalController = 3
+	THERMAL_CONTROLLER_MAX6649         ThermalController = 4
+	THERMAL_CONTROLLER_MAX1617         ThermalController = 5
+	THERMAL_CONTROLLER_LM99            ThermalController = 6
+	THERMAL_CONTROLLER_LM89            ThermalController = 7
+	THERMAL_CONTROLLER_LM64            ThermalController = 8
+	THERMAL_CONTROLLER_G781            ThermalController = 9
+	THERMAL_CONTROLLER_ADT7473         ThermalController = 10
+	THERMAL_CONTROLLER_SBMAX6649       ThermalController = 11
+	THERMAL_CONTROLLER_VBIOSEVT        ThermalController = 12
+	THERMAL_CONTROLLER_OS              ThermalController = 13
+	THERMAL_CONTROLLER_NVSYSCON_CANOAS ThermalController = 14
+	THERMAL_CONTROLLER_NVSYSCON_E551   ThermalController = 15
+	THERMAL_CONTROLLER_MAX6649R        ThermalController = 16
+	THERMAL_CONTROLLER_ADT7473S        ThermalController = 17
+	THERMAL_CONTROLLER_UNKNOWN         ThermalController = -1
+)
+
 // CoolerControl as declared in nvml/nvml.h
 type CoolerControl int32
 
@@ -1353,6 +1534,16 @@ const (
 	THERMAL_COOLER_TARGET_MEMORY       CoolerTarget = 4
 	THERMAL_COOLER_TARGET_POWER_SUPPLY CoolerTarget = 8
 	THERMAL_COOLER_TARGET_GPU_RELATED  CoolerTarget = 14
+)
+
+// UUIDType as declared in nvml/nvml.h
+type UUIDType int32
+
+// UUIDType enumeration from nvml/nvml.h
+const (
+	UUID_TYPE_NONE   UUIDType = iota
+	UUID_TYPE_ASCII  UUIDType = 1
+	UUID_TYPE_BINARY UUIDType = 2
 )
 
 // EnableState as declared in nvml/nvml.h
@@ -1668,6 +1859,19 @@ const (
 	VGPU_INSTANCE_GUEST_INFO_STATE_INITIALIZED   VgpuGuestInfoState = 1
 )
 
+// GridLicenseFeatureCode as declared in nvml/nvml.h
+type GridLicenseFeatureCode int32
+
+// GridLicenseFeatureCode enumeration from nvml/nvml.h
+const (
+	GRID_LICENSE_FEATURE_CODE_UNKNOWN      GridLicenseFeatureCode = iota
+	GRID_LICENSE_FEATURE_CODE_VGPU         GridLicenseFeatureCode = 1
+	GRID_LICENSE_FEATURE_CODE_NVIDIA_RTX   GridLicenseFeatureCode = 2
+	GRID_LICENSE_FEATURE_CODE_VWORKSTATION GridLicenseFeatureCode = 2
+	GRID_LICENSE_FEATURE_CODE_GAMING       GridLicenseFeatureCode = 3
+	GRID_LICENSE_FEATURE_CODE_COMPUTE      GridLicenseFeatureCode = 4
+)
+
 // VgpuCapability as declared in nvml/nvml.h
 type VgpuCapability int32
 
@@ -1787,9 +1991,9 @@ type ClockLimitId int32
 
 // ClockLimitId enumeration from nvml/nvml.h
 const (
-	CLOCK_LIMIT_ID_RANGE_START ClockLimitId = -256
-	CLOCK_LIMIT_ID_TDP         ClockLimitId = -255
-	CLOCK_LIMIT_ID_UNLIMITED   ClockLimitId = -254
+	CLOCK_LIMIT_ID_RANGE_START ClockLimitId = 4294967040
+	CLOCK_LIMIT_ID_TDP         ClockLimitId = 4294967041
+	CLOCK_LIMIT_ID_UNLIMITED   ClockLimitId = 4294967042
 )
 
 // VgpuVmCompatibility as declared in nvml/nvml.h
@@ -1813,83 +2017,7 @@ const (
 	VGPU_COMPATIBILITY_LIMIT_HOST_DRIVER  VgpuPgpuCompatibilityLimitCode = 1
 	VGPU_COMPATIBILITY_LIMIT_GUEST_DRIVER VgpuPgpuCompatibilityLimitCode = 2
 	VGPU_COMPATIBILITY_LIMIT_GPU          VgpuPgpuCompatibilityLimitCode = 4
-	VGPU_COMPATIBILITY_LIMIT_OTHER        VgpuPgpuCompatibilityLimitCode = -2147483648
-)
-
-// DeviceAddressingModeType as declared in nvml/nvml.h
-type DeviceAddressingModeType int32
-
-// DeviceAddressingModeType enumeration from nvml/nvml.h
-const (
-	DEVICE_ADDRESSING_MODE_NONE DeviceAddressingModeType = iota
-	DEVICE_ADDRESSING_MODE_HMM  DeviceAddressingModeType = 1
-	DEVICE_ADDRESSING_MODE_ATS  DeviceAddressingModeType = 2
-)
-
-// ThermalTarget as declared in nvml/nvml.h
-type ThermalTarget int32
-
-// ThermalTarget enumeration from nvml/nvml.h
-const (
-	THERMAL_TARGET_NONE         ThermalTarget = iota
-	THERMAL_TARGET_GPU          ThermalTarget = 1
-	THERMAL_TARGET_MEMORY       ThermalTarget = 2
-	THERMAL_TARGET_POWER_SUPPLY ThermalTarget = 4
-	THERMAL_TARGET_BOARD        ThermalTarget = 8
-	THERMAL_TARGET_VCD_BOARD    ThermalTarget = 9
-	THERMAL_TARGET_VCD_INLET    ThermalTarget = 10
-	THERMAL_TARGET_VCD_OUTLET   ThermalTarget = 11
-	THERMAL_TARGET_ALL          ThermalTarget = 15
-	THERMAL_TARGET_UNKNOWN      ThermalTarget = -1
-)
-
-// ThermalController as declared in nvml/nvml.h
-type ThermalController int32
-
-// ThermalController enumeration from nvml/nvml.h
-const (
-	THERMAL_CONTROLLER_NONE            ThermalController = iota
-	THERMAL_CONTROLLER_GPU_INTERNAL    ThermalController = 1
-	THERMAL_CONTROLLER_ADM1032         ThermalController = 2
-	THERMAL_CONTROLLER_ADT7461         ThermalController = 3
-	THERMAL_CONTROLLER_MAX6649         ThermalController = 4
-	THERMAL_CONTROLLER_MAX1617         ThermalController = 5
-	THERMAL_CONTROLLER_LM99            ThermalController = 6
-	THERMAL_CONTROLLER_LM89            ThermalController = 7
-	THERMAL_CONTROLLER_LM64            ThermalController = 8
-	THERMAL_CONTROLLER_G781            ThermalController = 9
-	THERMAL_CONTROLLER_ADT7473         ThermalController = 10
-	THERMAL_CONTROLLER_SBMAX6649       ThermalController = 11
-	THERMAL_CONTROLLER_VBIOSEVT        ThermalController = 12
-	THERMAL_CONTROLLER_OS              ThermalController = 13
-	THERMAL_CONTROLLER_NVSYSCON_CANOAS ThermalController = 14
-	THERMAL_CONTROLLER_NVSYSCON_E551   ThermalController = 15
-	THERMAL_CONTROLLER_MAX6649R        ThermalController = 16
-	THERMAL_CONTROLLER_ADT7473S        ThermalController = 17
-	THERMAL_CONTROLLER_UNKNOWN         ThermalController = -1
-)
-
-// UUIDType as declared in nvml/nvml.h
-type UUIDType int32
-
-// UUIDType enumeration from nvml/nvml.h
-const (
-	UUID_TYPE_NONE   UUIDType = iota
-	UUID_TYPE_ASCII  UUIDType = 1
-	UUID_TYPE_BINARY UUIDType = 2
-)
-
-// GridLicenseFeatureCode as declared in nvml/nvml.h
-type GridLicenseFeatureCode int32
-
-// GridLicenseFeatureCode enumeration from nvml/nvml.h
-const (
-	GRID_LICENSE_FEATURE_CODE_UNKNOWN      GridLicenseFeatureCode = iota
-	GRID_LICENSE_FEATURE_CODE_VGPU         GridLicenseFeatureCode = 1
-	GRID_LICENSE_FEATURE_CODE_NVIDIA_RTX   GridLicenseFeatureCode = 2
-	GRID_LICENSE_FEATURE_CODE_VWORKSTATION GridLicenseFeatureCode = 2
-	GRID_LICENSE_FEATURE_CODE_GAMING       GridLicenseFeatureCode = 3
-	GRID_LICENSE_FEATURE_CODE_COMPUTE      GridLicenseFeatureCode = 4
+	VGPU_COMPATIBILITY_LIMIT_OTHER        VgpuPgpuCompatibilityLimitCode = 2147483648
 )
 
 // GpmMetricId as declared in nvml/nvml.h

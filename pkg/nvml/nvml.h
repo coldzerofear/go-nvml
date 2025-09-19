@@ -743,20 +743,21 @@ typedef enum
     NVML_THERMAL_CONTROLLER_UNKNOWN = -1,
 } nvmlThermalController_t;
 
+typedef struct {
+    nvmlThermalController_t controller;
+    int defaultMinTemp;
+    int defaultMaxTemp;
+    int currentTemp;
+    nvmlThermalTarget_t target;
+} nvmlGpuThermalSettingsSensor_t;
+
 /**
  * Struct to hold the thermal sensor settings
  */
 typedef struct
 {
     unsigned int   count;
-    struct
-    {
-        nvmlThermalController_t controller;
-        int defaultMinTemp;
-        int defaultMaxTemp;
-        int currentTemp;
-        nvmlThermalTarget_t target;
-    } sensor[NVML_MAX_THERMAL_SENSORS_PER_GPU];
+    nvmlGpuThermalSettingsSensor_t sensor[NVML_MAX_THERMAL_SENSORS_PER_GPU];
 
 } nvmlGpuThermalSettings_t;
 
@@ -1562,16 +1563,17 @@ typedef enum nvmlGpuUtilizationDomainId_t
     NVML_GPU_UTILIZATION_DOMAIN_BUS    = 3, //!< Bus interface domain
 } nvmlGpuUtilizationDomainId_t;
 
+typedef struct {
+    unsigned int bIsPresent;
+    unsigned int percentage;
+    unsigned int incThreshold;
+    unsigned int decThreshold;
+} nvmlGpuDynamicPstatesInfoUtilization_t;
+
 typedef struct nvmlGpuDynamicPstatesInfo_st
 {
     unsigned int       flags;          //!< Reserved for future use
-    struct
-    {
-        unsigned int   bIsPresent;     //!< Set if this utilization domain is present on this GPU
-        unsigned int   percentage;     //!< Percentage of time where the domain is considered busy in the last 1-second interval
-        unsigned int   incThreshold;   //!< Utilization threshold that can trigger a perf-increasing P-State change when crossed
-        unsigned int   decThreshold;   //!< Utilization threshold that can trigger a perf-decreasing P-State change when crossed
-    } utilization[NVML_MAX_GPU_UTILIZATIONS];
+    nvmlGpuDynamicPstatesInfoUtilization_t utilization[NVML_MAX_GPU_UTILIZATIONS];
 } nvmlGpuDynamicPstatesInfo_t;
 
 /*
@@ -1957,21 +1959,23 @@ typedef nvmlVgpuRuntimeState_v1_t nvmlVgpuRuntimeState_t;
  */
 #define NVML_VGPU_SCHEDULER_ENGINE_TYPE_GRAPHICS  1
 
+typedef struct {
+    unsigned int avgFactor;
+    unsigned int timeslice;
+} nvmlVgpuSchedulerParamsVgpuSchedDataWithARR_t;
+
+typedef struct {
+    unsigned int timeslice;
+} nvmlVgpuSchedulerParamsVgpuSchedData_t;
+
 /**
  * Union to represent the vGPU Scheduler Parameters
  */
 typedef union
 {
-    struct
-    {
-        unsigned int    avgFactor;          //!< Average factor in compensating the timeslice for Adaptive Round Robin mode
-        unsigned int    timeslice;          //!< The timeslice in ns for each software run list as configured, or the default value otherwise
-    } vgpuSchedDataWithARR;
+    nvmlVgpuSchedulerParamsVgpuSchedDataWithARR_t vgpuSchedDataWithARR;
 
-    struct
-    {
-        unsigned int    timeslice;          //!< The timeslice in ns for each software run list as configured, or the default value otherwise
-    } vgpuSchedData;
+    nvmlVgpuSchedulerParamsVgpuSchedData_t vgpuSchedData;
 
 } nvmlVgpuSchedulerParams_t;
 
@@ -2011,21 +2015,23 @@ typedef struct nvmlVgpuSchedulerGetState_st
     nvmlVgpuSchedulerParams_t   schedulerParams;
 } nvmlVgpuSchedulerGetState_t;
 
+typedef struct {
+    unsigned int avgFactor;
+    unsigned int frequency;
+} nvmlVgpuSchedulerSetParamsVgpuSchedDataWithARR_t;
+
+typedef struct {
+    unsigned int timeslice;
+} nvmlVgpuSchedulerSetParamsVgpuSchedData_t;
+
 /**
  * Union to represent the vGPU Scheduler set Parameters
  */
 typedef union
 {
-    struct
-    {
-        unsigned int    avgFactor;          //!< Average factor in compensating the timeslice for Adaptive Round Robin mode
-        unsigned int    frequency;          //!< Frequency for Adaptive Round Robin mode
-    } vgpuSchedDataWithARR;
+    nvmlVgpuSchedulerSetParamsVgpuSchedDataWithARR_t vgpuSchedDataWithARR;
 
-    struct
-    {
-        unsigned int    timeslice;          //!< The timeslice in ns(Nanoseconds) for each software run list as configured, or the default value otherwise
-    } vgpuSchedData;
+    nvmlVgpuSchedulerSetParamsVgpuSchedData_t vgpuSchedData;
 
 } nvmlVgpuSchedulerSetParams_t;
 
@@ -12915,6 +12921,12 @@ typedef struct
     struct nvmlGpmSample_st* handle;
 } nvmlGpmSample_t;
 
+typedef struct {
+    char *shortName;
+    char *longName;
+    char *unit;
+} nvmlGpmMetricMetricInfo_t;
+
 /**
  * GPM metric information.
  */
@@ -12923,12 +12935,7 @@ typedef struct
     unsigned int metricId;   //!<  IN: NVML_GPM_METRIC_? define of which metric to retrieve
     nvmlReturn_t nvmlReturn; //!<  OUT: Status of this metric. If this is nonzero, then value is not valid
     double value;            //!<  OUT: Value of this metric. Is only valid if nvmlReturn is 0 (NVML_SUCCESS)
-    struct
-    {
-        char *shortName;
-        char *longName;
-        char *unit;
-    } metricInfo;            //!< OUT: Metric name and unit. Those can be NULL if not defined
+    nvmlGpmMetricMetricInfo_t metricInfo;            //!< OUT: Metric name and unit. Those can be NULL if not defined
 } nvmlGpmMetric_t;
 
 /**

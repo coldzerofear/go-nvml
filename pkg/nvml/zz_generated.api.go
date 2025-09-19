@@ -57,6 +57,7 @@ var (
 	DeviceGetComputeInstanceId                       = libnvml.DeviceGetComputeInstanceId
 	DeviceGetComputeMode                             = libnvml.DeviceGetComputeMode
 	DeviceGetComputeRunningProcesses                 = libnvml.DeviceGetComputeRunningProcesses
+	DeviceGetComputeRunningProcessesBySize           = libnvml.DeviceGetComputeRunningProcessesBySize
 	DeviceGetConfComputeGpuAttestationReport         = libnvml.DeviceGetConfComputeGpuAttestationReport
 	DeviceGetConfComputeGpuCertificate               = libnvml.DeviceGetConfComputeGpuCertificate
 	DeviceGetConfComputeMemSizeInfo                  = libnvml.DeviceGetConfComputeMemSizeInfo
@@ -111,6 +112,7 @@ var (
 	DeviceGetGpuMaxPcieLinkGeneration                = libnvml.DeviceGetGpuMaxPcieLinkGeneration
 	DeviceGetGpuOperationMode                        = libnvml.DeviceGetGpuOperationMode
 	DeviceGetGraphicsRunningProcesses                = libnvml.DeviceGetGraphicsRunningProcesses
+	DeviceGetGraphicsRunningProcessesBySize          = libnvml.DeviceGetGraphicsRunningProcessesBySize
 	DeviceGetGridLicensableFeatures                  = libnvml.DeviceGetGridLicensableFeatures
 	DeviceGetGspFirmwareMode                         = libnvml.DeviceGetGspFirmwareMode
 	DeviceGetGspFirmwareVersion                      = libnvml.DeviceGetGspFirmwareVersion
@@ -437,6 +439,7 @@ type Interface interface {
 	DeviceGetComputeInstanceId(Device) (int, Return)
 	DeviceGetComputeMode(Device) (ComputeMode, Return)
 	DeviceGetComputeRunningProcesses(Device) ([]ProcessInfo, Return)
+	DeviceGetComputeRunningProcessesBySize(Device, uint32) ([]ProcessInfo, Return)
 	DeviceGetConfComputeGpuAttestationReport(Device, *ConfComputeGpuAttestationReport) Return
 	DeviceGetConfComputeGpuCertificate(Device) (ConfComputeGpuCertificate, Return)
 	DeviceGetConfComputeMemSizeInfo(Device) (ConfComputeMemSizeInfo, Return)
@@ -491,6 +494,7 @@ type Interface interface {
 	DeviceGetGpuMaxPcieLinkGeneration(Device) (int, Return)
 	DeviceGetGpuOperationMode(Device) (GpuOperationMode, GpuOperationMode, Return)
 	DeviceGetGraphicsRunningProcesses(Device) ([]ProcessInfo, Return)
+	DeviceGetGraphicsRunningProcessesBySize(Device, uint32) ([]ProcessInfo, Return)
 	DeviceGetGridLicensableFeatures(Device) (GridLicensableFeatures, Return)
 	DeviceGetGspFirmwareMode(Device) (bool, bool, Return)
 	DeviceGetGspFirmwareVersion(Device) (string, Return)
@@ -814,6 +818,7 @@ type Device interface {
 	GetComputeInstanceId() (int, Return)
 	GetComputeMode() (ComputeMode, Return)
 	GetComputeRunningProcesses() ([]ProcessInfo, Return)
+	GetComputeRunningProcessesBySize(uint32) ([]ProcessInfo, Return)
 	GetConfComputeGpuAttestationReport(*ConfComputeGpuAttestationReport) Return
 	GetConfComputeGpuCertificate() (ConfComputeGpuCertificate, Return)
 	GetConfComputeMemSizeInfo() (ConfComputeMemSizeInfo, Return)
@@ -867,6 +872,7 @@ type Device interface {
 	GetGpuMaxPcieLinkGeneration() (int, Return)
 	GetGpuOperationMode() (GpuOperationMode, GpuOperationMode, Return)
 	GetGraphicsRunningProcesses() ([]ProcessInfo, Return)
+	GetGraphicsRunningProcessesBySize(uint32) ([]ProcessInfo, Return)
 	GetGridLicensableFeatures() (GridLicensableFeatures, Return)
 	GetGspFirmwareMode() (bool, bool, Return)
 	GetGspFirmwareVersion() (string, Return)
