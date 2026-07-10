@@ -157,7 +157,9 @@ var nvmlEventSetWait = nvmlEventSetWait_v1
 var nvmlDeviceGetAttributes = nvmlDeviceGetAttributes_v1
 var nvmlComputeInstanceGetInfo = nvmlComputeInstanceGetInfo_v1
 var deviceGetComputeRunningProcesses = deviceGetComputeRunningProcesses_v1
+var deviceGetComputeRunningProcessesByCount = deviceGetComputeRunningProcessesByCount_v1
 var deviceGetGraphicsRunningProcesses = deviceGetGraphicsRunningProcesses_v1
+var deviceGetGraphicsRunningProcessesByCount = deviceGetGraphicsRunningProcessesByCount_v1
 var deviceGetMPSComputeRunningProcesses = deviceGetMPSComputeRunningProcesses_v1
 var GetBlacklistDeviceCount = GetExcludedDeviceCount
 var GetBlacklistDeviceInfoByIndex = GetExcludedDeviceInfoByIndex
@@ -172,24 +174,23 @@ type ProcessInfo_v1Slice []ProcessInfo_v1
 type ProcessInfo_v2Slice []ProcessInfo_v2
 
 func (pis ProcessInfo_v1Slice) ToProcessInfoSlice() []ProcessInfo {
-	var newInfos []ProcessInfo
-	for _, pi := range pis {
+	var newInfos = make([]ProcessInfo, len(pis))
+	for i, pi := range pis {
 		info := ProcessInfo{
 			Pid:               pi.Pid,
 			UsedGpuMemory:     pi.UsedGpuMemory,
 			GpuInstanceId:     0xFFFFFFFF, // GPU instance ID is invalid in v1
 			ComputeInstanceId: 0xFFFFFFFF, // Compute instance ID is invalid in v1
 		}
-		newInfos = append(newInfos, info)
+		newInfos[i] = info
 	}
 	return newInfos
 }
 
 func (pis ProcessInfo_v2Slice) ToProcessInfoSlice() []ProcessInfo {
-	var newInfos []ProcessInfo
-	for _, pi := range pis {
-		info := ProcessInfo(pi)
-		newInfos = append(newInfos, info)
+	var newInfos = make([]ProcessInfo, len(pis))
+	for i, pi := range pis {
+		newInfos[i] = ProcessInfo(pi)
 	}
 	return newInfos
 }
@@ -260,18 +261,22 @@ func (l *library) updateVersionedSymbols() {
 	err = l.dl.Lookup("nvmlDeviceGetComputeRunningProcesses_v2")
 	if err == nil {
 		deviceGetComputeRunningProcesses = deviceGetComputeRunningProcesses_v2
+		deviceGetComputeRunningProcessesByCount = deviceGetComputeRunningProcessesByCount_v2
 	}
 	err = l.dl.Lookup("nvmlDeviceGetComputeRunningProcesses_v3")
 	if err == nil {
 		deviceGetComputeRunningProcesses = deviceGetComputeRunningProcesses_v3
+		deviceGetComputeRunningProcessesByCount = deviceGetComputeRunningProcessesByCount_v3
 	}
 	err = l.dl.Lookup("nvmlDeviceGetGraphicsRunningProcesses_v2")
 	if err == nil {
 		deviceGetGraphicsRunningProcesses = deviceGetGraphicsRunningProcesses_v2
+		deviceGetGraphicsRunningProcessesByCount = deviceGetGraphicsRunningProcessesByCount_v2
 	}
 	err = l.dl.Lookup("nvmlDeviceGetGraphicsRunningProcesses_v3")
 	if err == nil {
 		deviceGetGraphicsRunningProcesses = deviceGetGraphicsRunningProcesses_v3
+		deviceGetGraphicsRunningProcessesByCount = deviceGetGraphicsRunningProcessesByCount_v3
 	}
 	err = l.dl.Lookup("nvmlDeviceGetMPSComputeRunningProcesses_v2")
 	if err == nil {

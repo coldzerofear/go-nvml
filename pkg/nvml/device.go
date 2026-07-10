@@ -1097,6 +1097,17 @@ func deviceGetComputeRunningProcesses_v1(device nvmlDevice) ([]ProcessInfo, Retu
 	}
 }
 
+// nvml.DeviceGetComputeRunningProcessesByCount()
+func deviceGetComputeRunningProcessesByCount_v1(device nvmlDevice, infoCount uint32) ([]ProcessInfo, Return) {
+	count := infoCount
+	infos := make([]ProcessInfo_v1, infoCount)
+	ret := nvmlDeviceGetComputeRunningProcesses_v1(device, &count, &infos[0])
+	if ret == SUCCESS {
+		return ProcessInfo_v1Slice(infos[:count]).ToProcessInfoSlice(), ret
+	}
+	return nil, ret
+}
+
 func deviceGetComputeRunningProcesses_v2(device nvmlDevice) ([]ProcessInfo, Return) {
 	var infoCount uint32 = 1 // Will be reduced upon returning
 	for {
@@ -1110,6 +1121,16 @@ func deviceGetComputeRunningProcesses_v2(device nvmlDevice) ([]ProcessInfo, Retu
 		}
 		infoCount *= 2
 	}
+}
+
+func deviceGetComputeRunningProcessesByCount_v2(device nvmlDevice, infoCount uint32) ([]ProcessInfo, Return) {
+	count := infoCount
+	infos := make([]ProcessInfo_v2, infoCount)
+	ret := nvmlDeviceGetComputeRunningProcesses_v2(device, &count, &infos[0])
+	if ret == SUCCESS {
+		return ProcessInfo_v2Slice(infos[:count]).ToProcessInfoSlice(), ret
+	}
+	return nil, ret
 }
 
 func deviceGetComputeRunningProcesses_v3(device nvmlDevice) ([]ProcessInfo, Return) {
@@ -1127,12 +1148,30 @@ func deviceGetComputeRunningProcesses_v3(device nvmlDevice) ([]ProcessInfo, Retu
 	}
 }
 
+func deviceGetComputeRunningProcessesByCount_v3(device nvmlDevice, infoCount uint32) ([]ProcessInfo, Return) {
+	count := infoCount
+	infos := make([]ProcessInfo, infoCount)
+	ret := nvmlDeviceGetComputeRunningProcesses_v3(device, &count, &infos[0])
+	if ret == SUCCESS {
+		return infos[:infoCount], ret
+	}
+	return nil, ret
+}
+
 func (l *library) DeviceGetComputeRunningProcesses(device Device) ([]ProcessInfo, Return) {
 	return device.GetComputeRunningProcesses()
 }
 
 func (device nvmlDevice) GetComputeRunningProcesses() ([]ProcessInfo, Return) {
 	return deviceGetComputeRunningProcesses(device)
+}
+
+func (l *library) DeviceGetComputeRunningProcessesByCount(device Device, infoCount uint32) ([]ProcessInfo, Return) {
+	return device.GetComputeRunningProcessesByCount(infoCount)
+}
+
+func (device nvmlDevice) GetComputeRunningProcessesByCount(infoCount uint32) ([]ProcessInfo, Return) {
+	return deviceGetComputeRunningProcessesByCount(device, infoCount)
 }
 
 // nvml.DeviceGetGraphicsRunningProcesses()
@@ -1151,6 +1190,17 @@ func deviceGetGraphicsRunningProcesses_v1(device nvmlDevice) ([]ProcessInfo, Ret
 	}
 }
 
+// nvml.DeviceGetGraphicsRunningProcessesByCount()
+func deviceGetGraphicsRunningProcessesByCount_v1(device nvmlDevice, infoCount uint32) ([]ProcessInfo, Return) {
+	count := infoCount
+	infos := make([]ProcessInfo_v1, infoCount)
+	ret := nvmlDeviceGetGraphicsRunningProcesses_v1(device, &count, &infos[0])
+	if ret == SUCCESS {
+		return ProcessInfo_v1Slice(infos[:count]).ToProcessInfoSlice(), ret
+	}
+	return nil, ret
+}
+
 func deviceGetGraphicsRunningProcesses_v2(device nvmlDevice) ([]ProcessInfo, Return) {
 	var infoCount uint32 = 1 // Will be reduced upon returning
 	for {
@@ -1164,6 +1214,16 @@ func deviceGetGraphicsRunningProcesses_v2(device nvmlDevice) ([]ProcessInfo, Ret
 		}
 		infoCount *= 2
 	}
+}
+
+func deviceGetGraphicsRunningProcessesByCount_v2(device nvmlDevice, infoCount uint32) ([]ProcessInfo, Return) {
+	count := infoCount
+	infos := make([]ProcessInfo_v2, infoCount)
+	ret := nvmlDeviceGetGraphicsRunningProcesses_v2(device, &count, &infos[0])
+	if ret == SUCCESS {
+		return ProcessInfo_v2Slice(infos[:count]).ToProcessInfoSlice(), ret
+	}
+	return nil, ret
 }
 
 func deviceGetGraphicsRunningProcesses_v3(device nvmlDevice) ([]ProcessInfo, Return) {
@@ -1181,12 +1241,30 @@ func deviceGetGraphicsRunningProcesses_v3(device nvmlDevice) ([]ProcessInfo, Ret
 	}
 }
 
+func deviceGetGraphicsRunningProcessesByCount_v3(device nvmlDevice, infoCount uint32) ([]ProcessInfo, Return) {
+	count := infoCount
+	infos := make([]ProcessInfo, infoCount)
+	ret := nvmlDeviceGetGraphicsRunningProcesses_v3(device, &count, &infos[0])
+	if ret == SUCCESS {
+		return infos[:infoCount], ret
+	}
+	return nil, ret
+}
+
 func (l *library) DeviceGetGraphicsRunningProcesses(device Device) ([]ProcessInfo, Return) {
 	return device.GetGraphicsRunningProcesses()
 }
 
 func (device nvmlDevice) GetGraphicsRunningProcesses() ([]ProcessInfo, Return) {
 	return deviceGetGraphicsRunningProcesses(device)
+}
+
+func (l *library) DeviceGetGraphicsRunningProcessesByCount(device Device, infoCount uint32) ([]ProcessInfo, Return) {
+	return device.GetGraphicsRunningProcessesByCount(infoCount)
+}
+
+func (device nvmlDevice) GetGraphicsRunningProcessesByCount(infoCount uint32) ([]ProcessInfo, Return) {
+	return deviceGetGraphicsRunningProcessesByCount(device, infoCount)
 }
 
 // nvml.DeviceGetMPSComputeRunningProcesses()
@@ -1939,6 +2017,11 @@ func (l *library) DeviceGetProcessUtilization(device Device, lastSeenTimestamp u
 	return device.GetProcessUtilization(lastSeenTimestamp)
 }
 
+// nvml.DeviceGetProcessUtilizationByCount()
+func (l *library) DeviceGetProcessUtilizationByCount(device Device, lastSeenTimestamp uint64, sampleCount uint32) ([]ProcessUtilizationSample, Return) {
+	return device.GetProcessUtilizationByCount(lastSeenTimestamp, sampleCount)
+}
+
 func (device nvmlDevice) GetProcessUtilization(lastSeenTimestamp uint64) ([]ProcessUtilizationSample, Return) {
 	var processSamplesCount uint32
 	ret := nvmlDeviceGetProcessUtilization(device, nil, &processSamplesCount, lastSeenTimestamp)
@@ -1951,6 +2034,16 @@ func (device nvmlDevice) GetProcessUtilization(lastSeenTimestamp uint64) ([]Proc
 	utilization := make([]ProcessUtilizationSample, processSamplesCount)
 	ret = nvmlDeviceGetProcessUtilization(device, &utilization[0], &processSamplesCount, lastSeenTimestamp)
 	return utilization[:processSamplesCount], ret
+}
+
+func (device nvmlDevice) GetProcessUtilizationByCount(lastSeenTimestamp uint64, sampleCount uint32) ([]ProcessUtilizationSample, Return) {
+	processSamplesCount := sampleCount
+	utilization := make([]ProcessUtilizationSample, sampleCount)
+	ret := nvmlDeviceGetProcessUtilization(device, &utilization[0], &processSamplesCount, lastSeenTimestamp)
+	if ret == SUCCESS {
+		return utilization[:processSamplesCount], ret
+	}
+	return []ProcessUtilizationSample{}, ret
 }
 
 // nvml.DeviceGetSupportedVgpus()
@@ -3271,6 +3364,16 @@ func (device nvmlDevice) GetProcessesUtilizationInfo() (ProcessesUtilizationInfo
 	processesUtilInfo.Version = STRUCT_VERSION(processesUtilInfo, 1)
 	ret := nvmlDeviceGetProcessesUtilizationInfo(device, &processesUtilInfo)
 	return processesUtilInfo, ret
+}
+
+// nvml.DeviceGetProcessesUtilizationByInfo()
+func (l *library) DeviceGetProcessesUtilizationByInfo(device Device, info *ProcessesUtilizationInfo) Return {
+	return device.GetProcessesUtilizationByInfo(info)
+}
+
+func (device nvmlDevice) GetProcessesUtilizationByInfo(processesUtilInfo *ProcessesUtilizationInfo) Return {
+	processesUtilInfo.Version = STRUCT_VERSION(processesUtilInfo, 1)
+	return nvmlDeviceGetProcessesUtilizationInfo(device, processesUtilInfo)
 }
 
 // nvml.DeviceGetVgpuHeterogeneousMode()

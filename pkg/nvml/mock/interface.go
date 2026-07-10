@@ -525,6 +525,9 @@ var _ nvml.Interface = &Interface{}
 //			DeviceGetProcessUtilizationFunc: func(device nvml.Device, v uint64) ([]nvml.ProcessUtilizationSample, nvml.Return) {
 //				panic("mock out the DeviceGetProcessUtilization method")
 //			},
+//			DeviceGetProcessesUtilizationByInfoFunc: func(device nvml.Device, processesUtilizationInfo *nvml.ProcessesUtilizationInfo) nvml.Return {
+//				panic("mock out the DeviceGetProcessesUtilizationByInfo method")
+//			},
 //			DeviceGetProcessesUtilizationInfoFunc: func(device nvml.Device) (nvml.ProcessesUtilizationInfo, nvml.Return) {
 //				panic("mock out the DeviceGetProcessesUtilizationInfo method")
 //			},
@@ -1704,6 +1707,9 @@ type Interface struct {
 
 	// DeviceGetProcessUtilizationFunc mocks the DeviceGetProcessUtilization method.
 	DeviceGetProcessUtilizationFunc func(device nvml.Device, v uint64) ([]nvml.ProcessUtilizationSample, nvml.Return)
+
+	// DeviceGetProcessesUtilizationByInfoFunc mocks the DeviceGetProcessesUtilizationByInfo method.
+	DeviceGetProcessesUtilizationByInfoFunc func(device nvml.Device, processesUtilizationInfo *nvml.ProcessesUtilizationInfo) nvml.Return
 
 	// DeviceGetProcessesUtilizationInfoFunc mocks the DeviceGetProcessesUtilizationInfo method.
 	DeviceGetProcessesUtilizationInfoFunc func(device nvml.Device) (nvml.ProcessesUtilizationInfo, nvml.Return)
@@ -3334,6 +3340,13 @@ type Interface struct {
 			// V is the v argument value.
 			V uint64
 		}
+		// DeviceGetProcessesUtilizationByInfo holds details about calls to the DeviceGetProcessesUtilizationByInfo method.
+		DeviceGetProcessesUtilizationByInfo []struct {
+			// Device is the device argument value.
+			Device nvml.Device
+			// ProcessesUtilizationInfo is the processesUtilizationInfo argument value.
+			ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+		}
 		// DeviceGetProcessesUtilizationInfo holds details about calls to the DeviceGetProcessesUtilizationInfo method.
 		DeviceGetProcessesUtilizationInfo []struct {
 			// Device is the device argument value.
@@ -4808,6 +4821,7 @@ type Interface struct {
 	lockDeviceGetPowerState                              sync.RWMutex
 	lockDeviceGetPowerUsage                              sync.RWMutex
 	lockDeviceGetProcessUtilization                      sync.RWMutex
+	lockDeviceGetProcessesUtilizationByInfo              sync.RWMutex
 	lockDeviceGetProcessesUtilizationInfo                sync.RWMutex
 	lockDeviceGetRemappedRows                            sync.RWMutex
 	lockDeviceGetRemappedRows_v2                         sync.RWMutex
@@ -10667,6 +10681,42 @@ func (mock *Interface) DeviceGetProcessUtilizationCalls() []struct {
 	mock.lockDeviceGetProcessUtilization.RLock()
 	calls = mock.calls.DeviceGetProcessUtilization
 	mock.lockDeviceGetProcessUtilization.RUnlock()
+	return calls
+}
+
+// DeviceGetProcessesUtilizationByInfo calls DeviceGetProcessesUtilizationByInfoFunc.
+func (mock *Interface) DeviceGetProcessesUtilizationByInfo(device nvml.Device, processesUtilizationInfo *nvml.ProcessesUtilizationInfo) nvml.Return {
+	if mock.DeviceGetProcessesUtilizationByInfoFunc == nil {
+		panic("Interface.DeviceGetProcessesUtilizationByInfoFunc: method is nil but Interface.DeviceGetProcessesUtilizationByInfo was just called")
+	}
+	callInfo := struct {
+		Device                   nvml.Device
+		ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+	}{
+		Device:                   device,
+		ProcessesUtilizationInfo: processesUtilizationInfo,
+	}
+	mock.lockDeviceGetProcessesUtilizationByInfo.Lock()
+	mock.calls.DeviceGetProcessesUtilizationByInfo = append(mock.calls.DeviceGetProcessesUtilizationByInfo, callInfo)
+	mock.lockDeviceGetProcessesUtilizationByInfo.Unlock()
+	return mock.DeviceGetProcessesUtilizationByInfoFunc(device, processesUtilizationInfo)
+}
+
+// DeviceGetProcessesUtilizationByInfoCalls gets all the calls that were made to DeviceGetProcessesUtilizationByInfo.
+// Check the length with:
+//
+//	len(mockedInterface.DeviceGetProcessesUtilizationByInfoCalls())
+func (mock *Interface) DeviceGetProcessesUtilizationByInfoCalls() []struct {
+	Device                   nvml.Device
+	ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+} {
+	var calls []struct {
+		Device                   nvml.Device
+		ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+	}
+	mock.lockDeviceGetProcessesUtilizationByInfo.RLock()
+	calls = mock.calls.DeviceGetProcessesUtilizationByInfo
+	mock.lockDeviceGetProcessesUtilizationByInfo.RUnlock()
 	return calls
 }
 
