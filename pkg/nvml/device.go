@@ -3372,7 +3372,7 @@ func (l *library) DeviceGetProcessesUtilizationByInfo(device Device, info *Proce
 }
 
 func (device nvmlDevice) GetProcessesUtilizationByInfo(processesUtilInfo *ProcessesUtilizationInfo) Return {
-	processesUtilInfo.Version = STRUCT_VERSION(processesUtilInfo, 1)
+	processesUtilInfo.Version = STRUCT_VERSION(*processesUtilInfo, 1)
 	return nvmlDeviceGetProcessesUtilizationInfo(device, processesUtilInfo)
 }
 
