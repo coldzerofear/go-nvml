@@ -1153,7 +1153,7 @@ func deviceGetComputeRunningProcessesByCount_v3(device nvmlDevice, infoCount uin
 	infos := make([]ProcessInfo, infoCount)
 	ret := nvmlDeviceGetComputeRunningProcesses_v3(device, &count, &infos[0])
 	if ret == SUCCESS {
-		return infos[:infoCount], ret
+		return infos[:count], ret
 	}
 	return nil, ret
 }
@@ -1246,7 +1246,7 @@ func deviceGetGraphicsRunningProcessesByCount_v3(device nvmlDevice, infoCount ui
 	infos := make([]ProcessInfo, infoCount)
 	ret := nvmlDeviceGetGraphicsRunningProcesses_v3(device, &count, &infos[0])
 	if ret == SUCCESS {
-		return infos[:infoCount], ret
+		return infos[:count], ret
 	}
 	return nil, ret
 }
