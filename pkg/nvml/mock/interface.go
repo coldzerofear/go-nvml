@@ -141,6 +141,9 @@ var _ nvml.Interface = &Interface{}
 //			DeviceGetComputeRunningProcessesFunc: func(device nvml.Device) ([]nvml.ProcessInfo, nvml.Return) {
 //				panic("mock out the DeviceGetComputeRunningProcesses method")
 //			},
+//			DeviceGetComputeRunningProcessesByCountFunc: func(device nvml.Device, v uint32) ([]nvml.ProcessInfo, nvml.Return) {
+//				panic("mock out the DeviceGetComputeRunningProcessesByCount method")
+//			},
 //			DeviceGetConfComputeGpuAttestationReportFunc: func(device nvml.Device, confComputeGpuAttestationReport *nvml.ConfComputeGpuAttestationReport) nvml.Return {
 //				panic("mock out the DeviceGetConfComputeGpuAttestationReport method")
 //			},
@@ -305,6 +308,9 @@ var _ nvml.Interface = &Interface{}
 //			},
 //			DeviceGetGraphicsRunningProcessesFunc: func(device nvml.Device) ([]nvml.ProcessInfo, nvml.Return) {
 //				panic("mock out the DeviceGetGraphicsRunningProcesses method")
+//			},
+//			DeviceGetGraphicsRunningProcessesByCountFunc: func(device nvml.Device, v uint32) ([]nvml.ProcessInfo, nvml.Return) {
+//				panic("mock out the DeviceGetGraphicsRunningProcessesByCount method")
 //			},
 //			DeviceGetGridLicensableFeaturesFunc: func(device nvml.Device) (nvml.GridLicensableFeatures, nvml.Return) {
 //				panic("mock out the DeviceGetGridLicensableFeatures method")
@@ -539,6 +545,12 @@ var _ nvml.Interface = &Interface{}
 //			},
 //			DeviceGetProcessUtilizationFunc: func(device nvml.Device, v uint64) ([]nvml.ProcessUtilizationSample, nvml.Return) {
 //				panic("mock out the DeviceGetProcessUtilization method")
+//			},
+//			DeviceGetProcessUtilizationByCountFunc: func(device nvml.Device, v1 uint64, v2 uint32) ([]nvml.ProcessUtilizationSample, nvml.Return) {
+//				panic("mock out the DeviceGetProcessUtilizationByCount method")
+//			},
+//			DeviceGetProcessesUtilizationByInfoFunc: func(device nvml.Device, processesUtilizationInfo *nvml.ProcessesUtilizationInfo) nvml.Return {
+//				panic("mock out the DeviceGetProcessesUtilizationByInfo method")
 //			},
 //			DeviceGetProcessesUtilizationInfoFunc: func(device nvml.Device) (nvml.ProcessesUtilizationInfo, nvml.Return) {
 //				panic("mock out the DeviceGetProcessesUtilizationInfo method")
@@ -1369,6 +1381,9 @@ type Interface struct {
 	// DeviceGetComputeRunningProcessesFunc mocks the DeviceGetComputeRunningProcesses method.
 	DeviceGetComputeRunningProcessesFunc func(device nvml.Device) ([]nvml.ProcessInfo, nvml.Return)
 
+	// DeviceGetComputeRunningProcessesByCountFunc mocks the DeviceGetComputeRunningProcessesByCount method.
+	DeviceGetComputeRunningProcessesByCountFunc func(device nvml.Device, v uint32) ([]nvml.ProcessInfo, nvml.Return)
+
 	// DeviceGetConfComputeGpuAttestationReportFunc mocks the DeviceGetConfComputeGpuAttestationReport method.
 	DeviceGetConfComputeGpuAttestationReportFunc func(device nvml.Device, confComputeGpuAttestationReport *nvml.ConfComputeGpuAttestationReport) nvml.Return
 
@@ -1533,6 +1548,9 @@ type Interface struct {
 
 	// DeviceGetGraphicsRunningProcessesFunc mocks the DeviceGetGraphicsRunningProcesses method.
 	DeviceGetGraphicsRunningProcessesFunc func(device nvml.Device) ([]nvml.ProcessInfo, nvml.Return)
+
+	// DeviceGetGraphicsRunningProcessesByCountFunc mocks the DeviceGetGraphicsRunningProcessesByCount method.
+	DeviceGetGraphicsRunningProcessesByCountFunc func(device nvml.Device, v uint32) ([]nvml.ProcessInfo, nvml.Return)
 
 	// DeviceGetGridLicensableFeaturesFunc mocks the DeviceGetGridLicensableFeatures method.
 	DeviceGetGridLicensableFeaturesFunc func(device nvml.Device) (nvml.GridLicensableFeatures, nvml.Return)
@@ -1767,6 +1785,12 @@ type Interface struct {
 
 	// DeviceGetProcessUtilizationFunc mocks the DeviceGetProcessUtilization method.
 	DeviceGetProcessUtilizationFunc func(device nvml.Device, v uint64) ([]nvml.ProcessUtilizationSample, nvml.Return)
+
+	// DeviceGetProcessUtilizationByCountFunc mocks the DeviceGetProcessUtilizationByCount method.
+	DeviceGetProcessUtilizationByCountFunc func(device nvml.Device, v1 uint64, v2 uint32) ([]nvml.ProcessUtilizationSample, nvml.Return)
+
+	// DeviceGetProcessesUtilizationByInfoFunc mocks the DeviceGetProcessesUtilizationByInfo method.
+	DeviceGetProcessesUtilizationByInfoFunc func(device nvml.Device, processesUtilizationInfo *nvml.ProcessesUtilizationInfo) nvml.Return
 
 	// DeviceGetProcessesUtilizationInfoFunc mocks the DeviceGetProcessesUtilizationInfo method.
 	DeviceGetProcessesUtilizationInfoFunc func(device nvml.Device) (nvml.ProcessesUtilizationInfo, nvml.Return)
@@ -2702,6 +2726,13 @@ type Interface struct {
 			// Device is the device argument value.
 			Device nvml.Device
 		}
+		// DeviceGetComputeRunningProcessesByCount holds details about calls to the DeviceGetComputeRunningProcessesByCount method.
+		DeviceGetComputeRunningProcessesByCount []struct {
+			// Device is the device argument value.
+			Device nvml.Device
+			// V is the v argument value.
+			V uint32
+		}
 		// DeviceGetConfComputeGpuAttestationReport holds details about calls to the DeviceGetConfComputeGpuAttestationReport method.
 		DeviceGetConfComputeGpuAttestationReport []struct {
 			// Device is the device argument value.
@@ -3010,6 +3041,13 @@ type Interface struct {
 		DeviceGetGraphicsRunningProcesses []struct {
 			// Device is the device argument value.
 			Device nvml.Device
+		}
+		// DeviceGetGraphicsRunningProcessesByCount holds details about calls to the DeviceGetGraphicsRunningProcessesByCount method.
+		DeviceGetGraphicsRunningProcessesByCount []struct {
+			// Device is the device argument value.
+			Device nvml.Device
+			// V is the v argument value.
+			V uint32
 		}
 		// DeviceGetGridLicensableFeatures holds details about calls to the DeviceGetGridLicensableFeatures method.
 		DeviceGetGridLicensableFeatures []struct {
@@ -3458,6 +3496,22 @@ type Interface struct {
 			Device nvml.Device
 			// V is the v argument value.
 			V uint64
+		}
+		// DeviceGetProcessUtilizationByCount holds details about calls to the DeviceGetProcessUtilizationByCount method.
+		DeviceGetProcessUtilizationByCount []struct {
+			// Device is the device argument value.
+			Device nvml.Device
+			// V1 is the v1 argument value.
+			V1 uint64
+			// V2 is the v2 argument value.
+			V2 uint32
+		}
+		// DeviceGetProcessesUtilizationByInfo holds details about calls to the DeviceGetProcessesUtilizationByInfo method.
+		DeviceGetProcessesUtilizationByInfo []struct {
+			// Device is the device argument value.
+			Device nvml.Device
+			// ProcessesUtilizationInfo is the processesUtilizationInfo argument value.
+			ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
 		}
 		// DeviceGetProcessesUtilizationInfo holds details about calls to the DeviceGetProcessesUtilizationInfo method.
 		DeviceGetProcessesUtilizationInfo []struct {
@@ -4880,6 +4934,7 @@ type Interface struct {
 	lockDeviceGetComputeInstanceId                        sync.RWMutex
 	lockDeviceGetComputeMode                              sync.RWMutex
 	lockDeviceGetComputeRunningProcesses                  sync.RWMutex
+	lockDeviceGetComputeRunningProcessesByCount           sync.RWMutex
 	lockDeviceGetConfComputeGpuAttestationReport          sync.RWMutex
 	lockDeviceGetConfComputeGpuCertificate                sync.RWMutex
 	lockDeviceGetConfComputeMemSizeInfo                   sync.RWMutex
@@ -4935,6 +4990,7 @@ type Interface struct {
 	lockDeviceGetGpuMaxPcieLinkGeneration                 sync.RWMutex
 	lockDeviceGetGpuOperationMode                         sync.RWMutex
 	lockDeviceGetGraphicsRunningProcesses                 sync.RWMutex
+	lockDeviceGetGraphicsRunningProcessesByCount          sync.RWMutex
 	lockDeviceGetGridLicensableFeatures                   sync.RWMutex
 	lockDeviceGetGspFirmwareMode                          sync.RWMutex
 	lockDeviceGetGspFirmwareVersion                       sync.RWMutex
@@ -5013,6 +5069,8 @@ type Interface struct {
 	lockDeviceGetPowerState                               sync.RWMutex
 	lockDeviceGetPowerUsage                               sync.RWMutex
 	lockDeviceGetProcessUtilization                       sync.RWMutex
+	lockDeviceGetProcessUtilizationByCount                sync.RWMutex
+	lockDeviceGetProcessesUtilizationByInfo               sync.RWMutex
 	lockDeviceGetProcessesUtilizationInfo                 sync.RWMutex
 	lockDeviceGetRemappedRows                             sync.RWMutex
 	lockDeviceGetRemappedRows_v2                          sync.RWMutex
@@ -6612,6 +6670,42 @@ func (mock *Interface) DeviceGetComputeRunningProcessesCalls() []struct {
 	mock.lockDeviceGetComputeRunningProcesses.RLock()
 	calls = mock.calls.DeviceGetComputeRunningProcesses
 	mock.lockDeviceGetComputeRunningProcesses.RUnlock()
+	return calls
+}
+
+// DeviceGetComputeRunningProcessesByCount calls DeviceGetComputeRunningProcessesByCountFunc.
+func (mock *Interface) DeviceGetComputeRunningProcessesByCount(device nvml.Device, v uint32) ([]nvml.ProcessInfo, nvml.Return) {
+	if mock.DeviceGetComputeRunningProcessesByCountFunc == nil {
+		panic("Interface.DeviceGetComputeRunningProcessesByCountFunc: method is nil but Interface.DeviceGetComputeRunningProcessesByCount was just called")
+	}
+	callInfo := struct {
+		Device nvml.Device
+		V      uint32
+	}{
+		Device: device,
+		V:      v,
+	}
+	mock.lockDeviceGetComputeRunningProcessesByCount.Lock()
+	mock.calls.DeviceGetComputeRunningProcessesByCount = append(mock.calls.DeviceGetComputeRunningProcessesByCount, callInfo)
+	mock.lockDeviceGetComputeRunningProcessesByCount.Unlock()
+	return mock.DeviceGetComputeRunningProcessesByCountFunc(device, v)
+}
+
+// DeviceGetComputeRunningProcessesByCountCalls gets all the calls that were made to DeviceGetComputeRunningProcessesByCount.
+// Check the length with:
+//
+//	len(mockedInterface.DeviceGetComputeRunningProcessesByCountCalls())
+func (mock *Interface) DeviceGetComputeRunningProcessesByCountCalls() []struct {
+	Device nvml.Device
+	V      uint32
+} {
+	var calls []struct {
+		Device nvml.Device
+		V      uint32
+	}
+	mock.lockDeviceGetComputeRunningProcessesByCount.RLock()
+	calls = mock.calls.DeviceGetComputeRunningProcessesByCount
+	mock.lockDeviceGetComputeRunningProcessesByCount.RUnlock()
 	return calls
 }
 
@@ -8439,6 +8533,42 @@ func (mock *Interface) DeviceGetGraphicsRunningProcessesCalls() []struct {
 	mock.lockDeviceGetGraphicsRunningProcesses.RLock()
 	calls = mock.calls.DeviceGetGraphicsRunningProcesses
 	mock.lockDeviceGetGraphicsRunningProcesses.RUnlock()
+	return calls
+}
+
+// DeviceGetGraphicsRunningProcessesByCount calls DeviceGetGraphicsRunningProcessesByCountFunc.
+func (mock *Interface) DeviceGetGraphicsRunningProcessesByCount(device nvml.Device, v uint32) ([]nvml.ProcessInfo, nvml.Return) {
+	if mock.DeviceGetGraphicsRunningProcessesByCountFunc == nil {
+		panic("Interface.DeviceGetGraphicsRunningProcessesByCountFunc: method is nil but Interface.DeviceGetGraphicsRunningProcessesByCount was just called")
+	}
+	callInfo := struct {
+		Device nvml.Device
+		V      uint32
+	}{
+		Device: device,
+		V:      v,
+	}
+	mock.lockDeviceGetGraphicsRunningProcessesByCount.Lock()
+	mock.calls.DeviceGetGraphicsRunningProcessesByCount = append(mock.calls.DeviceGetGraphicsRunningProcessesByCount, callInfo)
+	mock.lockDeviceGetGraphicsRunningProcessesByCount.Unlock()
+	return mock.DeviceGetGraphicsRunningProcessesByCountFunc(device, v)
+}
+
+// DeviceGetGraphicsRunningProcessesByCountCalls gets all the calls that were made to DeviceGetGraphicsRunningProcessesByCount.
+// Check the length with:
+//
+//	len(mockedInterface.DeviceGetGraphicsRunningProcessesByCountCalls())
+func (mock *Interface) DeviceGetGraphicsRunningProcessesByCountCalls() []struct {
+	Device nvml.Device
+	V      uint32
+} {
+	var calls []struct {
+		Device nvml.Device
+		V      uint32
+	}
+	mock.lockDeviceGetGraphicsRunningProcessesByCount.RLock()
+	calls = mock.calls.DeviceGetGraphicsRunningProcessesByCount
+	mock.lockDeviceGetGraphicsRunningProcessesByCount.RUnlock()
 	return calls
 }
 
@@ -11051,6 +11181,82 @@ func (mock *Interface) DeviceGetProcessUtilizationCalls() []struct {
 	mock.lockDeviceGetProcessUtilization.RLock()
 	calls = mock.calls.DeviceGetProcessUtilization
 	mock.lockDeviceGetProcessUtilization.RUnlock()
+	return calls
+}
+
+// DeviceGetProcessUtilizationByCount calls DeviceGetProcessUtilizationByCountFunc.
+func (mock *Interface) DeviceGetProcessUtilizationByCount(device nvml.Device, v1 uint64, v2 uint32) ([]nvml.ProcessUtilizationSample, nvml.Return) {
+	if mock.DeviceGetProcessUtilizationByCountFunc == nil {
+		panic("Interface.DeviceGetProcessUtilizationByCountFunc: method is nil but Interface.DeviceGetProcessUtilizationByCount was just called")
+	}
+	callInfo := struct {
+		Device nvml.Device
+		V1     uint64
+		V2     uint32
+	}{
+		Device: device,
+		V1:     v1,
+		V2:     v2,
+	}
+	mock.lockDeviceGetProcessUtilizationByCount.Lock()
+	mock.calls.DeviceGetProcessUtilizationByCount = append(mock.calls.DeviceGetProcessUtilizationByCount, callInfo)
+	mock.lockDeviceGetProcessUtilizationByCount.Unlock()
+	return mock.DeviceGetProcessUtilizationByCountFunc(device, v1, v2)
+}
+
+// DeviceGetProcessUtilizationByCountCalls gets all the calls that were made to DeviceGetProcessUtilizationByCount.
+// Check the length with:
+//
+//	len(mockedInterface.DeviceGetProcessUtilizationByCountCalls())
+func (mock *Interface) DeviceGetProcessUtilizationByCountCalls() []struct {
+	Device nvml.Device
+	V1     uint64
+	V2     uint32
+} {
+	var calls []struct {
+		Device nvml.Device
+		V1     uint64
+		V2     uint32
+	}
+	mock.lockDeviceGetProcessUtilizationByCount.RLock()
+	calls = mock.calls.DeviceGetProcessUtilizationByCount
+	mock.lockDeviceGetProcessUtilizationByCount.RUnlock()
+	return calls
+}
+
+// DeviceGetProcessesUtilizationByInfo calls DeviceGetProcessesUtilizationByInfoFunc.
+func (mock *Interface) DeviceGetProcessesUtilizationByInfo(device nvml.Device, processesUtilizationInfo *nvml.ProcessesUtilizationInfo) nvml.Return {
+	if mock.DeviceGetProcessesUtilizationByInfoFunc == nil {
+		panic("Interface.DeviceGetProcessesUtilizationByInfoFunc: method is nil but Interface.DeviceGetProcessesUtilizationByInfo was just called")
+	}
+	callInfo := struct {
+		Device                   nvml.Device
+		ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+	}{
+		Device:                   device,
+		ProcessesUtilizationInfo: processesUtilizationInfo,
+	}
+	mock.lockDeviceGetProcessesUtilizationByInfo.Lock()
+	mock.calls.DeviceGetProcessesUtilizationByInfo = append(mock.calls.DeviceGetProcessesUtilizationByInfo, callInfo)
+	mock.lockDeviceGetProcessesUtilizationByInfo.Unlock()
+	return mock.DeviceGetProcessesUtilizationByInfoFunc(device, processesUtilizationInfo)
+}
+
+// DeviceGetProcessesUtilizationByInfoCalls gets all the calls that were made to DeviceGetProcessesUtilizationByInfo.
+// Check the length with:
+//
+//	len(mockedInterface.DeviceGetProcessesUtilizationByInfoCalls())
+func (mock *Interface) DeviceGetProcessesUtilizationByInfoCalls() []struct {
+	Device                   nvml.Device
+	ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+} {
+	var calls []struct {
+		Device                   nvml.Device
+		ProcessesUtilizationInfo *nvml.ProcessesUtilizationInfo
+	}
+	mock.lockDeviceGetProcessesUtilizationByInfo.RLock()
+	calls = mock.calls.DeviceGetProcessesUtilizationByInfo
+	mock.lockDeviceGetProcessesUtilizationByInfo.RUnlock()
 	return calls
 }
 
